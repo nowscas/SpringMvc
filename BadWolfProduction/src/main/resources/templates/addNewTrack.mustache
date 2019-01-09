@@ -1,0 +1,14 @@
+<html>
+<body>
+
+    <div>
+        <form method="post" action="addTrack">
+            <input type="text" name="description" placeholder="Введите описание трека" />
+            <input type="text" name="singer" placeholder="Введите исполнителя трека" />
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <button type="submit">Добавить трек</button>
+        </form>
+    </div>
+
+</body>
+</html>
