@@ -55,12 +55,12 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public Set<Role> getRole() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.roles = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -85,6 +85,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRole();
+        return getRoles();
     }
 }
