@@ -1,7 +1,9 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.AudioTrack;
+import com.nowscas.BadWolfProduction.domain.MainPagePost;
 import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
+import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,8 @@ import java.util.Map;
 public class MainController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;
+    @Autowired
+    MainPagePostRepo mainPagePostRepo;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -24,6 +28,9 @@ public class MainController {
     public String main(Map<String, Object> model) {
         Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
         model.put("tracks", tracks);
+
+        Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
+        model.put("posts", posts);
         return "main";
     }
 
