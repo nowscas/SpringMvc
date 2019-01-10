@@ -22,7 +22,7 @@ public class NewTrackController {
 
     @PostMapping("/addNewTrack")
     public String addTrack(@RequestParam String description, @RequestParam String singer, Map<String, Object> model){
-        AudioTrack audioTrack = new AudioTrack(description, singer);
+        AudioTrack audioTrack = new AudioTrack(description, singer, true);
 
         audioTrackRepo.save(audioTrack);
 

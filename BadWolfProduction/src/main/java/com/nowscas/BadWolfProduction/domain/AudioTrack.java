@@ -1,9 +1,6 @@
 package com.nowscas.BadWolfProduction.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class AudioTrack {
@@ -13,13 +10,15 @@ public class AudioTrack {
 
     private String trackDescription;
     private String trackSinger;
+    private boolean newTrack;
 
     public AudioTrack(){
     }
 
-    public AudioTrack(String trackDescription, String trackSinger) {
+    public AudioTrack(String trackDescription, String trackSinger, boolean newTrack) {
         this.trackDescription = trackDescription;
         this.trackSinger = trackSinger;
+        this.newTrack = newTrack;
     }
 
     public Integer getId() {
@@ -44,5 +43,13 @@ public class AudioTrack {
 
     public void setTrackSinger(String trackSinger) {
         this.trackSinger = trackSinger;
+    }
+
+    public boolean isNewTrack() {
+        return newTrack;
+    }
+
+    public void setNewTrack(boolean newTrack) {
+        this.newTrack = newTrack;
     }
 }
