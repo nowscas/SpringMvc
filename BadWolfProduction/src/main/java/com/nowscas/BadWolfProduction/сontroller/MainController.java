@@ -6,6 +6,7 @@ import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
 import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,26 +26,20 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
-        model.put("tracks", tracks);
-
+    public String main(@RequestParam (required = false, defaultValue = "") String filter, Model model) {
+        Iterable<AudioTrack> tracks;
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
-        model.put("posts", posts);
-        return "main";
-    }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model){
-        Iterable<AudioTrack> audioTracks;
 
         if (filter != null && !filter.isEmpty()) {
-            audioTracks = audioTrackRepo.findByTrackSinger(filter);
+            tracks = audioTrackRepo.findByTrackSinger(filter);
         }
         else {
-            audioTracks = audioTrackRepo.findAll();
+            tracks = audioTrackRepo.findAll();
         }
-        model.put("tracks", audioTracks);
+
+        model.addAttribute("tracks", tracks);
+        model.addAttribute("filter", filter);
+        model.addAttribute("posts", posts);
         return "main";
     }
 }

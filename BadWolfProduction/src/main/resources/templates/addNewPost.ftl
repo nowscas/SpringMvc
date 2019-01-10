@@ -1,14 +1,13 @@
-<html>
-<body>
+<#import "parts/common.ftl" as c>
+
+<@c.page>
 
 <div>
     <form method="post" action="addNewPost">
         <input type="text" name="description" placeholder="Введите тему поста" />
         <input type="text" name="text" placeholder="Введите текст поста" />
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit">Опубликовать пост</button>
     </form>
 </div>
-
-</body>
-</html>
+</@c.page>
