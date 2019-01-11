@@ -7,7 +7,7 @@
     <tr>
         <th>Name</th>
         <th>Role</th>
-        <th></th>
+        <th>Image</th>
     </tr>
     </thead>
     <tbody>
@@ -15,6 +15,11 @@
     <tr>
         <td>${user.username}</td>
         <td><#list user.roles as role>${role}<#sep>, </#list></td>
+        <td>
+            <#if user.filename??>
+                <img src="/img/${user.filename}">
+            </#if>
+        </td>
         <td><a href="/user/${user.id}">edit</a></td>
     </tr>
 </#list>

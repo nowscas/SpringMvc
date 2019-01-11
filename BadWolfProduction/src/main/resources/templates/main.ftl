@@ -7,7 +7,7 @@
         <span><a href="/user">Список пользователей</span>
     </div>
     <form method="get" action="/main">
-        <input type="text" name="filter" placeholder="Поиск по автору" value="${filter}">
+        <input type="text" name="filter" placeholder="Поиск по автору" value="${filter?ifExists}">
         <button type="submit">Найти</button>
     </form>
 
