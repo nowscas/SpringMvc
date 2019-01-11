@@ -2,6 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.Role;
 import com.nowscas.BadWolfProduction.domain.User;
+import com.nowscas.BadWolfProduction.fileRedactor.ImageRedactor;
 import com.nowscas.BadWolfProduction.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -21,6 +23,9 @@ import java.util.UUID;
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private ImageRedactor imageRedactor;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -41,7 +46,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (file != null) {
+        if (file.getSize() != 0) {
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
@@ -50,8 +55,13 @@ public class RegistrationController {
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
-            file.transferTo(new File(uploadPath +  "/" + resultFilename));
+            File output = new File(uploadPath +  "/" + resultFilename);
+            ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 40, 40), "png", output);
+
             user.setFilename(resultFilename);
+        }
+        else {
+            user.setFilename("defaultImage.jpg");
         }
 
         user.setActive(true);
