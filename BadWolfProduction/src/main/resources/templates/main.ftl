@@ -4,6 +4,7 @@
 <@c.page>
     <div>
         <@l.logout />
+        <span><a href="/user">Список пользователей</span>
     </div>
     <form method="get" action="/main">
         <input type="text" name="filter" placeholder="Поиск по автору" value="${filter}">
