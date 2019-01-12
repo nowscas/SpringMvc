@@ -47,17 +47,28 @@ public class RegistrationController {
         }
 
         if (file.getSize() != 0) {
+
+            if (!file.getContentType().contains("image")) {
+                model.put("message", "Выбран не подходящий файл!");
+                return "registration";
+            }
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
+
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
-            File output = new File(uploadPath +  "/" + resultFilename);
-            ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 40, 40), "png", output);
-
+            try {
+                File output = new File(uploadPath +  "/" + resultFilename);
+                ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 40, 40), "png", output);
+            }
+            catch (NullPointerException e) {
+                model.put("message", "Не подходящий формат изображения!");
+                return "registration";
+            }
             user.setFilename(resultFilename);
         }
         else {
