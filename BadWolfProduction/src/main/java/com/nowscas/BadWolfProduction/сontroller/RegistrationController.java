@@ -46,7 +46,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (file.getSize() != 0) {
+        if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
 
             if (!file.getContentType().contains("image")) {
                 model.put("message", "Выбран не подходящий файл!");
