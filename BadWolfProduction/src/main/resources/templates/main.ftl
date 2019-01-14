@@ -12,15 +12,21 @@
     </form>
 
     <div>Список треков</div>
-    <#list tracks as track>
-    <div>
-        <b>${track.id}</b>
-        <span>${track.trackDescription}</span>
-        <i>${track.trackSinger}</i>
-    </div>
-    <#else>
-    Не найден ни 1 трек
-    </#list>
+    <table>
+        <#list tracks as track>
+            <tr>
+                <td>${track.trackDescription}</td>
+                <td>${track.trackSinger}</td>
+                <td>
+                    <audio controls preload="none">
+                        <source src=/audio/${track.filename} type="audio/mpeg">
+                    </audio>
+                </td>
+            </tr>
+        <#else>
+        Треки не найдены
+        </#list>
+    </table>
 
     <div>Список Новостей</div>
     <#list posts as post>
