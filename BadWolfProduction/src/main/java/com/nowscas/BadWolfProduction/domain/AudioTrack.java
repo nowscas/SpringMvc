@@ -11,6 +11,7 @@ public class AudioTrack {
     private String trackDescription;
     private String trackSinger;
     private boolean newTrack;
+    private String filename;
 
     public AudioTrack(){
     }
@@ -51,5 +52,13 @@ public class AudioTrack {
 
     public void setNewTrack(boolean newTrack) {
         this.newTrack = newTrack;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

@@ -1,4 +1,4 @@
-package com.nowscas.BadWolfProduction.fileRedactor;
+package com.nowscas.BadWolfProduction.service;
 
 import org.springframework.stereotype.Service;
 

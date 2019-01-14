@@ -2,7 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.Role;
 import com.nowscas.BadWolfProduction.domain.User;
-import com.nowscas.BadWolfProduction.fileRedactor.ImageRedactor;
+import com.nowscas.BadWolfProduction.service.ImageRedactor;
 import com.nowscas.BadWolfProduction.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class RegistrationController {
     @Autowired
     private ImageRedactor imageRedactor;
 
-    @Value("${upload.path}")
+    @Value("${upload.imagePath}")
     private String uploadPath;
 
     @GetMapping("/registration")
