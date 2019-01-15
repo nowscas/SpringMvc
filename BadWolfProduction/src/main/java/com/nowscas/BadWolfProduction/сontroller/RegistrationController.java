@@ -2,6 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.Role;
 import com.nowscas.BadWolfProduction.domain.User;
+import com.nowscas.BadWolfProduction.service.FileNameRedactor;
 import com.nowscas.BadWolfProduction.service.ImageRedactor;
 import com.nowscas.BadWolfProduction.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,10 @@ import java.util.UUID;
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
-
     @Autowired
     private ImageRedactor imageRedactor;
+    @Autowired
+    private FileNameRedactor fileNameRedactor;
 
     @Value("${upload.imagePath}")
     private String uploadPath;
@@ -52,6 +54,8 @@ public class RegistrationController {
                 model.put("message", "Выбран не подходящий файл!");
                 return "registration";
             }
+
+            String filename = fileNameRedactor.replaceSpace(file.getOriginalFilename());
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
@@ -59,7 +63,7 @@ public class RegistrationController {
             }
 
             String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            String resultFilename = uuidFile + "." + filename;
 
             try {
                 File output = new File(uploadPath +  "/" + resultFilename);

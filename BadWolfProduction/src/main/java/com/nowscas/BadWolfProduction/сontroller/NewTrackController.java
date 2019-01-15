@@ -2,6 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.AudioTrack;
 import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
+import com.nowscas.BadWolfProduction.service.FileNameRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import java.util.UUID;
 public class NewTrackController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;
+    @Autowired
+    private FileNameRedactor fileNameRedactor;
 
     @Value("${upload.musicPath}")
     private String uploadPath;
@@ -42,13 +45,14 @@ public class NewTrackController {
                 return "addNewTrack";
             }
 
+            String filename = fileNameRedactor.replaceSpace(file.getOriginalFilename());
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            String resultFilename = uuidFile + "." + filename;
 
             file.transferTo(new File(uploadPath +  "/" + resultFilename));
             audioTrack.setFilename(resultFilename);
