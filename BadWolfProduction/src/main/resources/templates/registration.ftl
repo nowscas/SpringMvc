@@ -8,7 +8,7 @@ ${message?ifExists}
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <input type="file" name="file">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <div><input type="submit" value="Sign In"/></div>
+    <div><input type="submit" value="Зарегистрироваться"/></div>
 </form>
 </@c.page>
 

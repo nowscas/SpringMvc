@@ -52,7 +52,6 @@ public class UserController {
                 user.getRoles().add(Role.valueOf(key));
             }
         }
-
         userRepo.save(user);
         return "redirect:/user";
     }

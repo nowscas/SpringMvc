@@ -8,7 +8,6 @@
 </head>
 <body>
     <#nested>
-
 </body>
 </html>
 </#macro>

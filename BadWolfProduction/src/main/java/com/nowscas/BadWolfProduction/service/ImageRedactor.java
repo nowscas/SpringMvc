@@ -10,8 +10,8 @@ import java.io.IOException;
 
 @Service
 public class ImageRedactor {
-    public BufferedImage resizeImage(byte[] bytes, int height, int width) throws IOException {
 
+    public BufferedImage resizeImage(byte[] bytes, int height, int width) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         BufferedImage bufferedImage = ImageIO.read(bis);
         return resize(bufferedImage, height, width);

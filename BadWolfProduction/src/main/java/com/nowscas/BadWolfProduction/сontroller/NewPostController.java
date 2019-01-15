@@ -1,6 +1,5 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
-import com.nowscas.BadWolfProduction.domain.AudioTrack;
 import com.nowscas.BadWolfProduction.domain.MainPagePost;
 import com.nowscas.BadWolfProduction.domain.User;
 import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
@@ -30,7 +29,6 @@ public class NewPostController {
             @RequestParam String text, Map<String, Object> model
     ){
         MainPagePost mainPagePost = new MainPagePost(description, text, user);
-
         mainPagePostRepo.save(mainPagePost);
 
         Iterable<MainPagePost> tracks = mainPagePostRepo.findAll();

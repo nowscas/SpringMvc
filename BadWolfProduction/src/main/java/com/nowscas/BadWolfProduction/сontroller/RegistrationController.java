@@ -40,7 +40,8 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("file") MultipartFile file,
-            User user, Map<String, Object> model) throws IOException {
+            User user, Map<String, Object> model
+    ) throws IOException {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
@@ -49,7 +50,6 @@ public class RegistrationController {
         }
 
         if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-
             if (!file.getContentType().contains("image")) {
                 model.put("message", "Выбран не подходящий файл!");
                 return "registration";
@@ -61,7 +61,6 @@ public class RegistrationController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + filename;
 

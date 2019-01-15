@@ -35,11 +35,11 @@ public class NewTrackController {
     public String addTrack(
             @RequestParam("file") MultipartFile file,
             @RequestParam String description,
-            @RequestParam String singer, Map<String, Object> model) throws IOException {
+            @RequestParam String singer, Map<String, Object> model
+    ) throws IOException {
         AudioTrack audioTrack = new AudioTrack(description, singer, true);
 
         if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-
             if (!file.getContentType().contains("audio")) {
                 model.put("message", "Выбран не подходящий файл!");
                 return "addNewTrack";
@@ -56,18 +56,15 @@ public class NewTrackController {
 
             file.transferTo(new File(uploadPath +  "/" + resultFilename));
             audioTrack.setFilename(resultFilename);
-
             audioTrackRepo.save(audioTrack);
 
             Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
             model.put("tracks", tracks);
             return "redirect:/main";
-
         }
         else {
             model.put("message", "Укажите загружаемый файл!");
             return "addNewTrack";
         }
     }
-
 }

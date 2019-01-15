@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
     @Value("${upload.imagePath}")
     private String uploadImagePath;
-
     @Value("${upload.musicPath}")
     private String uploadMusicPath;
 

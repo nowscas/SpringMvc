@@ -4,20 +4,6 @@ import javax.persistence.*;
 
 @Entity
 public class MainPagePost {
-
-    public MainPagePost(String postHeader, String postBody, User author) {
-        this.postHeader = postHeader;
-        this.postBody = postBody;
-        this.author = author;
-    }
-
-    public MainPagePost() {
-    }
-
-    public String getAuthorName() {
-        return author != null ? author.getUsername() : "unknown author";
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,6 +13,15 @@ public class MainPagePost {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
+    public MainPagePost(String postHeader, String postBody, User author) {
+        this.postHeader = postHeader;
+        this.postBody = postBody;
+        this.author = author;
+    }
+
+    public MainPagePost() {
+    }
 
     public Long getId() {
         return id;
@@ -58,5 +53,9 @@ public class MainPagePost {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getAuthorName() {
+        return author != null ? author.getUsername() : "unknown author";
     }
 }
