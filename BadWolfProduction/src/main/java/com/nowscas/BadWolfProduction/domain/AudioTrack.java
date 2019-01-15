@@ -2,6 +2,9 @@ package com.nowscas.BadWolfProduction.domain;
 
 import javax.persistence.*;
 
+/**
+ * Сущность записи аудиотрека в БД.
+ */
 @Entity
 public class AudioTrack {
     @Id

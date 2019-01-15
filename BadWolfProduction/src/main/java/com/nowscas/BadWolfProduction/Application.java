@@ -10,14 +10,25 @@ import org.springframework.context.annotation.Bean;
 
 import javax.servlet.MultipartConfigElement;
 
+/**
+ * Класс запускает приложение.
+ */
 @SpringBootApplication
 public class Application {
 
+    /**
+     * Метод запускает приложение.
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
 
+    /**
+     * Метод устанавливает максимальные размеры файла, загружаемого на сервер, или выгружаемого с сервера.
+     * @return
+     */
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
@@ -26,6 +37,10 @@ public class Application {
         return factory.createMultipartConfig();
     }
 
+    /**
+     * Метод устанавливает время обращеня к серверу.
+     * @return
+     */
     @Bean
     public TomcatServletWebServerFactory tomcatEmbedded(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();

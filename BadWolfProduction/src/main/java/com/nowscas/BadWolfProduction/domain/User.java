@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Сущность пользователя в БД.
+ */
 @Entity
 @Table(name = "usr")
 public class User implements UserDetails {

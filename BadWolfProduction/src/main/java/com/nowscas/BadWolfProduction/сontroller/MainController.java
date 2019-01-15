@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+/**
+ * Класс отвечает за отображение главной страницы и страницы приветствия.
+ */
 @Controller
 public class MainController {
     @Autowired
@@ -19,11 +22,22 @@ public class MainController {
     @Autowired
     MainPagePostRepo mainPagePostRepo;
 
+    /**
+     * Метод возвращает страницу приветствия.
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
+    /**
+     * Метод возвращает главную страницу приложения.
+     * @param filter
+     * @param model
+     * @return
+     */
     @GetMapping("/main")
     public String main(@RequestParam (required = false, defaultValue = "") String filter, Model model) {
         Iterable<AudioTrack> tracks;

@@ -2,9 +2,9 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.Role;
 import com.nowscas.BadWolfProduction.domain.User;
-import com.nowscas.BadWolfProduction.service.FileNameRedactor;
 import com.nowscas.BadWolfProduction.service.ImageRedactor;
 import com.nowscas.BadWolfProduction.repos.UserRepo;
+import com.nowscas.BadWolfProduction.service.StringRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Класс отвечает за сохранение нового пользователя в БД.
+ */
 @Controller
 public class RegistrationController {
     @Autowired
@@ -27,16 +30,28 @@ public class RegistrationController {
     @Autowired
     private ImageRedactor imageRedactor;
     @Autowired
-    private FileNameRedactor fileNameRedactor;
+    private StringRedactor fileNameRedactor;
 
     @Value("${upload.imagePath}")
     private String uploadPath;
 
+    /**
+     * Метод возвращает страницу регистрации.
+     * @return
+     */
     @GetMapping("/registration")
     public String registration() {
         return "registration";
     }
 
+    /**
+     * Метод сохраняет нового пользователя в БД с загруженным изображением или с defaultImage.
+     * @param file
+     * @param user
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("file") MultipartFile file,
@@ -55,7 +70,7 @@ public class RegistrationController {
                 return "registration";
             }
 
-            String filename = fileNameRedactor.replaceSpace(file.getOriginalFilename());
+            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {

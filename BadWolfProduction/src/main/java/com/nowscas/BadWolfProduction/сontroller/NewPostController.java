@@ -12,16 +12,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+/**
+ * Класс отвечает за отображение страницы добавления нового поста и сохранения поста в БД.
+ */
 @Controller
 public class NewPostController {
     @Autowired
     private MainPagePostRepo mainPagePostRepo;
 
+    /**
+     * Метод возвращает страницу добавления нового поста.
+     * @return
+     */
     @GetMapping("/addNewPost")
     public String getNewPostTemplate(){
         return "addNewPost";
     }
 
+    /**
+     * Метод сохраняет новый пост в БД и возвращает главную страницу.
+     * @param user
+     * @param description
+     * @param text
+     * @param model
+     * @return
+     */
     @PostMapping("/addNewPost")
     public String addPost(
             @AuthenticationPrincipal User user,
@@ -35,5 +50,4 @@ public class NewPostController {
         model.put("tracks", tracks);
         return "redirect:/main";
     }
-
 }

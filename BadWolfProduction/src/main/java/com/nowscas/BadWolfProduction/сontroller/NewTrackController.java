@@ -2,7 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.AudioTrack;
 import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
-import com.nowscas.BadWolfProduction.service.FileNameRedactor;
+import com.nowscas.BadWolfProduction.service.StringRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,21 +16,37 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Класс отвечает за отображение страницы добавления нового трека и сохранения трека в БД.
+ */
 @Controller
 public class NewTrackController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;
     @Autowired
-    private FileNameRedactor fileNameRedactor;
+    private StringRedactor fileNameRedactor;
 
     @Value("${upload.musicPath}")
     private String uploadPath;
 
+    /**
+     * Метод возвращающий страницу добавления трека.
+     * @return
+     */
     @GetMapping("/addNewTrack")
     public String getNewTrackTemplate(){
         return "addNewTrack";
     }
 
+    /**
+     * Метод сохраняет новый трек в БД и возвращает главную страницу.
+     * @param file
+     * @param description
+     * @param singer
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/addNewTrack")
     public String addTrack(
             @RequestParam("file") MultipartFile file,
@@ -45,7 +61,7 @@ public class NewTrackController {
                 return "addNewTrack";
             }
 
-            String filename = fileNameRedactor.replaceSpace(file.getOriginalFilename());
+            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
