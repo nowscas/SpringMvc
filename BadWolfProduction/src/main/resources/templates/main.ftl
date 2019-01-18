@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<form method="get" action="/main">
+<form method="get" action="/">
     <input type="text" name="filter" placeholder="Поиск по автору" value="${filter?ifExists}">
     <button type="submit">Найти</button>
 </form>

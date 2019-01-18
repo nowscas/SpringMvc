@@ -13,7 +13,7 @@
         </div>
     </div>
     <#if !isRegisterForm>
-        <a href="/registration">Зарегистрироваться</a>
+        <a href="/registration" style="color:white">Зарегистрироваться</a>
     <#else>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Изображение:</label>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </#if>
-    <button class="btn btn-primary" type="submit"><#if isRegisterForm>Зарегистрироваться<#else>Войти</#if></button>
+    <button class="btn btn-light" type="submit"><#if isRegisterForm>Зарегистрироваться<#else>Войти</#if></button>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 </form>
 </#macro>
@@ -30,6 +30,13 @@
 <#macro logout>
 <form action="/logout" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <button class="btn btn-primary" type="submit">Выйти</button>
+    <button class="btn btn-light" type="submit">Выйти</button>
+</form>
+</#macro>
+
+<#macro navbarLogin>
+<form action="/login" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <button class="btn btn-light" type="submit">Войти</button>
 </form>
 </#macro>

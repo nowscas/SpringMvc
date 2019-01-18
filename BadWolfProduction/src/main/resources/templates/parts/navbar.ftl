@@ -10,21 +10,25 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-              <a class="nav-link" href="/main">Main page</a>
+              <a class="nav-link" href="/">Главная</a>
           </li>
           <#if isAdmin>
           <li class="nav-item">
-              <a class="nav-link" href="/user">User list</a>
+              <a class="nav-link" href="/user">Список пользователей</a>
           </li>
           </#if>
           <#if isModer>
           <li class="nav-item">
-              <a class="nav-link" href="/addNewTrack">AddTrack</a>
+              <a class="nav-link" href="/addNewTrack">Добавить трек</a>
           </li>
           </#if>
       </ul>
 
-    <div class="navbar-text mr-3">${name}</div>
-    <@l.logout />
+      <div class="navbar-text mr-3">${name}</div>
+      <#if user??>
+         <@l.logout />
+      <#else>
+          <@l.navbarLogin />
+      </#if>
   </div>
 </nav>

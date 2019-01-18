@@ -48,6 +48,6 @@ public class NewPostController {
 
         Iterable<MainPagePost> tracks = mainPagePostRepo.findAll();
         model.put("tracks", tracks);
-        return "redirect:/main";
+        return "redirect:/";
     }
 }

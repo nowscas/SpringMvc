@@ -10,10 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
-
 /**
- * Класс отвечает за отображение главной страницы и страницы приветствия.
+ * Класс отвечает за отображение главной страницы.
  */
 @Controller
 public class MainController {
@@ -23,22 +21,12 @@ public class MainController {
     MainPagePostRepo mainPagePostRepo;
 
     /**
-     * Метод возвращает страницу приветствия.
-     * @param model
-     * @return
-     */
-    @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
-        return "greeting";
-    }
-
-    /**
      * Метод возвращает главную страницу приложения.
      * @param filter
      * @param model
      * @return
      */
-    @GetMapping("/main")
+    @GetMapping("/")
     public String main(@RequestParam (required = false, defaultValue = "") String filter, Model model) {
         Iterable<AudioTrack> tracks;
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();

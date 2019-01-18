@@ -5,6 +5,7 @@ import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
 import com.nowscas.BadWolfProduction.service.StringRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import java.util.UUID;
  * Класс отвечает за отображение страницы добавления нового трека и сохранения трека в БД.
  */
 @Controller
+@PreAuthorize("hasAuthority('MODERATOR')")
 public class NewTrackController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;

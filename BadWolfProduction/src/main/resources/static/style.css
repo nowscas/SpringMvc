@@ -1,3 +1,16 @@
 body {
-    color: #4682B4;
+    color: #DCDCDC;
+    background: black;
+}
+.navbar{
+    background-color: #3B3A3A !important;
+}
+.navbar .navbar-brand{
+    color: #C2C1C1;
+}
+.navbar .navbar-brand:hover{
+    color: #C2C1C1 !important;
+}
+.navbar .navbar-nav li a{
+    color: #C2C1C1 !important;
 }
