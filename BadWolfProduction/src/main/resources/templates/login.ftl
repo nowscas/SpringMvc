@@ -2,7 +2,5 @@
 <#import "parts/login.ftl" as l>
 
 <@c.page>
-Войти в учетную запись
-<@l.login "/login" />
-<a href="/registration">Зарегистрироваться</a>
+<@l.login "/login" false />
 </@c.page>
