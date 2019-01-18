@@ -6,10 +6,15 @@ body {
     background-color: #3B3A3A !important;
 }
 .navbar .navbar-brand{
+    margin-left:5%;
+    margin-right:5%;
     color: #C2C1C1;
 }
 .navbar .navbar-brand:hover{
     color: #C2C1C1 !important;
+}
+.navbar .navbar-nav li{
+   white-space: nowrap;
 }
 .navbar .navbar-nav li a{
     color: #C2C1C1 !important;
