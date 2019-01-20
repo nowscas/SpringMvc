@@ -12,6 +12,7 @@ public class MainPagePost {
     private Long id;
     private String postHeader;
     private String postBody;
+    private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -60,5 +61,13 @@ public class MainPagePost {
 
     public String getAuthorName() {
         return author != null ? author.getUsername() : "unknown author";
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

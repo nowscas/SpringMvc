@@ -30,6 +30,9 @@
         <span>${post.postHeader}</span>
         <i>${post.postBody}</i>
         <strong>${post.authorName}</strong>
+        <#if post.filename??>
+            <img src="/postImg/${post.filename}">
+        </#if>
     </div>
     <#else>
         Не найден ни 1 трек
