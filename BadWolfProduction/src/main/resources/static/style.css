@@ -19,3 +19,6 @@ body {
 .navbar .navbar-nav li a{
     color: #C2C1C1 !important;
 }
+.container {
+    max-width: 100%;
+}
