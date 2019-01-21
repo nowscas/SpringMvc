@@ -1,8 +1,14 @@
 .container {
-    margin-left: 5 !important;
-    width: 90%;
-    background: #3B3A3A;
+    max-width: 80%;
     padding: 0;
+}
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.rounded{
+    background: #3B3A3A;
+    border-radius: 15px !important;
 }
 
 

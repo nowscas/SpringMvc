@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/static/mainPageStyle.css">
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 border-left border-top border-bottom border-secondary rounded">
             <div style="text-align: center;">Список треков</div>
             <#list tracks as track>
                 <div>${track.trackDescription} - ${track.trackSinger}</div>
@@ -16,7 +16,7 @@
                 Треки не найдены
             </#list>
         </div>
-        <div class="col-5">
+        <div class="col-5 border border-secondary rounded" style="box-shadow: -5px -5px 20px 5px black;">
             <div style="text-align: center;">Список Новостей</div>
                 <#list posts as post>
                     <div class="card my-3" style="width: 18rem;">
@@ -37,7 +37,7 @@
                     Не найден ни 1 трек
                 </#list>
         </div>
-        <div class="col-3">
+        <div class="col-3 border-right border-top border-bottom border-secondary rounded" style="box-shadow: -5px -5px 20px 5px black;">
             <div style="text-align: center;">Здесь будут акции и скидки</div>
         </div>
     </div>
