@@ -21,10 +21,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Класс отвечает за отображение страницы добавления нового поста и сохранения поста в БД.
+ * Класс отвечает за работу с постами.
  */
 @Controller
-public class NewPostController {
+public class PostController {
     @Autowired
     private MainPagePostRepo mainPagePostRepo;
     @Autowired
@@ -64,7 +64,7 @@ public class NewPostController {
         if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
             if (!file.getContentType().contains("image")) {
                 model.put("message", "Выбран не подходящий файл!");
-                return "registration";
+                return "addNewPost";
             }
 
             String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
@@ -82,7 +82,7 @@ public class NewPostController {
             }
             catch (NullPointerException e) {
                 model.put("message", "Не подходящий формат изображения!");
-                return "registration";
+                return "addNewPost";
             }
             mainPagePost.setFilename(resultFilename);
         }
@@ -91,5 +91,14 @@ public class NewPostController {
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
         model.put("posts", posts);
         return "redirect:/";
+    }
+
+    /**
+     * Метод возвращает страницу со всеми постами.
+     * @return
+     */
+    @GetMapping("/allPosts")
+    public String getAllPosts() {
+        return "allNews";
     }
 }

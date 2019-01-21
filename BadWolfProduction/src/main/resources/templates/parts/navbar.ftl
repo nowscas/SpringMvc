@@ -13,19 +13,19 @@
               <a class="nav-link" href="/">Главная</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">Новости</a>
+              <a class="nav-link" href="/allPosts">Новости</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">F.A.Q.</a>
+              <a class="nav-link" href="/FAQ">F.A.Q.</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">Наши работы</a>
+              <a class="nav-link" href="/allTracks">Наши работы</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">Цены</a>
+              <a class="nav-link" href="/prices">Цены</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/">Контакты</a>
+              <a class="nav-link" href="/contacts">Контакты</a>
           </li>
           <#if isAdmin>
           <li class="nav-item">

@@ -18,11 +18,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Класс отвечает за отображение страницы добавления нового трека и сохранения трека в БД.
+ * Класс отвечает за работу с аудиотреками.
  */
 @Controller
-@PreAuthorize("hasAuthority('MODERATOR')")
-public class NewTrackController {
+public class TrackController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;
     @Autowired
@@ -36,6 +35,7 @@ public class NewTrackController {
      * @return
      */
     @GetMapping("/addNewTrack")
+    @PreAuthorize("hasAuthority('MODERATOR')")
     public String getNewTrackTemplate(){
         return "addNewTrack";
     }
@@ -50,6 +50,7 @@ public class NewTrackController {
      * @throws IOException
      */
     @PostMapping("/addNewTrack")
+    @PreAuthorize("hasAuthority('MODERATOR')")
     public String addTrack(
             @RequestParam("file") MultipartFile file,
             @RequestParam String description,
@@ -84,5 +85,10 @@ public class NewTrackController {
             model.put("message", "Укажите загружаемый файл!");
             return "addNewTrack";
         }
+    }
+
+    @GetMapping("/allTracks")
+    public String getAllTracks() {
+        return "allTracks";
     }
 }
