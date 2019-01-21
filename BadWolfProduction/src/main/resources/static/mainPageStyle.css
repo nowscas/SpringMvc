@@ -5,12 +5,20 @@
 .row {
     margin-left: 0;
     margin-right: 0;
+    color: #C2C1C1;
 }
 .rounded{
     background: #3B3A3A;
     border-radius: 15px !important;
 }
-
+.columnHeader {
+    color: red;
+}
+.nav-link {
+    display: -webkit-inline-box;
+    padding: 0;
+    color: #C2C1C1;
+}
 
 
 

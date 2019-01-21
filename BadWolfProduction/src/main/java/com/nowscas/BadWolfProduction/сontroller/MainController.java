@@ -22,24 +22,15 @@ public class MainController {
 
     /**
      * Метод возвращает главную страницу приложения.
-     * @param filter
      * @param model
      * @return
      */
     @GetMapping("/")
-    public String main(@RequestParam (required = false, defaultValue = "") String filter, Model model) {
-        Iterable<AudioTrack> tracks;
+    public String main(Model model) {
+        Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
 
-        if (filter != null && !filter.isEmpty()) {
-            tracks = audioTrackRepo.findByTrackSinger(filter);
-        }
-        else {
-            tracks = audioTrackRepo.findAll();
-        }
-
         model.addAttribute("tracks", tracks);
-        model.addAttribute("filter", filter);
         model.addAttribute("posts", posts);
         return "main";
     }

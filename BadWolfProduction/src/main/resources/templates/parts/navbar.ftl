@@ -19,7 +19,7 @@
               <a class="nav-link" href="/FAQ">F.A.Q.</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/allTracks">Наши работы</a>
+              <a class="nav-link" href="/tracks/allTracks">Наши работы</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/prices">Цены</a>
@@ -34,7 +34,7 @@
           </#if>
           <#if isModer>
           <li class="nav-item">
-              <a class="nav-link" href="/addNewTrack">Добавить трек</a>
+              <a class="nav-link" href="/tracks/addNewTrack">Добавить трек</a>
           </li>
           </#if>
       </ul>

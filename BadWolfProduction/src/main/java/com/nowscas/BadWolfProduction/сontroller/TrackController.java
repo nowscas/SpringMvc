@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,6 +20,7 @@ import java.util.UUID;
  * Класс отвечает за работу с аудиотреками.
  */
 @Controller
+@RequestMapping("/tracks")
 public class TrackController {
     @Autowired
     private AudioTrackRepo audioTrackRepo;
@@ -87,8 +87,36 @@ public class TrackController {
         }
     }
 
+    /**
+     * Метод возвращает все треки.
+     * @param model
+     * @return
+     */
     @GetMapping("/allTracks")
-    public String getAllTracks() {
+    public String getAllTracks(Model model) {
+        Iterable<AudioTrack> tracks;
+        tracks = audioTrackRepo.findAll();
+        model.addAttribute("tracks", tracks);
+        return "allTracks";
+    }
+
+    /**
+     * Метод возвращает все треки переданного исполнителя.
+     * @param singer
+     * @param model
+     * @return
+     */
+    @GetMapping("{singer}")
+    public String getSingerTracks(@PathVariable String singer, Model model
+    ) {
+        Iterable<AudioTrack> tracks;
+        if (singer != null && !singer.isEmpty()) {
+            tracks = audioTrackRepo.findByTrackSinger(singer);
+        }
+        else {
+            tracks = audioTrackRepo.findAll();
+        }
+        model.addAttribute("tracks", tracks);
         return "allTracks";
     }
 }

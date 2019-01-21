@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/decoration/***"
                             , "/postImg/***"
                             , "/allPosts"
-                            , "/allTracks"
+                            , "/tracks/***"
                             , "/prices"
                             , "/contacts"
                             , "/FAQ").permitAll()
