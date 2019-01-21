@@ -76,10 +76,7 @@ public class TrackController {
             file.transferTo(new File(uploadPath +  "/" + resultFilename));
             audioTrack.setFilename(resultFilename);
             audioTrackRepo.save(audioTrack);
-
-            Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
-            model.put("tracks", tracks);
-            return "redirect:/main";
+            return "redirect:/";
         }
         else {
             model.put("message", "Укажите загружаемый файл!");

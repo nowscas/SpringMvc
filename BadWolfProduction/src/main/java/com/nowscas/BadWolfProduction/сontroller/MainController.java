@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+
 /**
  * Класс отвечает за отображение главной страницы.
  */
@@ -26,12 +28,12 @@ public class MainController {
      * @return
      */
     @GetMapping("/")
-    public String main(Model model) {
+    public String main(Map<String, Object> model) {
         Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
 
-        model.addAttribute("tracks", tracks);
-        model.addAttribute("posts", posts);
+        model.put("tracks", tracks);
+        model.put("posts", posts);
         return "main";
     }
 
