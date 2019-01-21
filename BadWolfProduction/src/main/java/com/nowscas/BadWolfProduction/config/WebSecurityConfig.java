@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/static/***"
                             , "/decoration/***"
                             , "/postImg/***"
+                            , "/audio/***"
                             , "/allPosts"
                             , "/tracks/***"
                             , "/prices"
