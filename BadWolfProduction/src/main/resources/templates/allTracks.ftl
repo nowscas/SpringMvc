@@ -1,3 +1,4 @@
+<#include "parts/security.ftl">
 <#import "parts/common.ftl" as c>
 
 <@c.page>
@@ -14,6 +15,11 @@
                     <source src=/audio/${track.filename} type="audio/mpeg">
                 </audio>
             </div>
+            <#if isAdmin>
+                <div class="col audioEdit">
+                    <a class="nav-link" href="/tracks/edit/${track.id}">edit</a>
+                </div>
+            </#if>
         </div>
     </div>
     <#else>

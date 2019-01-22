@@ -1,5 +1,5 @@
 .container {
-    max-width: 80%;
+    max-width: 85%;
     padding: 0;
     margin-top: 5px;
 }
@@ -11,6 +11,11 @@
 .audioPlayer {
     width: 70% !important;
     max-width: 70% !important;
+}
+.audioEdit {
+    margin: auto;
+    width: 5% !important;
+    max-width: 5% !important;
 }
 .row {
     height: 56px !important;

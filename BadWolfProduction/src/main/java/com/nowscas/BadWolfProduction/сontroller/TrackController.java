@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -84,6 +85,29 @@ public class TrackController {
         }
     }
 
+    @PostMapping
+    public String trackSave(
+            @RequestParam String trackDescription,
+            @RequestParam String trackSinger,
+            @RequestParam Map<String, String> form,
+            @RequestParam("id") AudioTrack audioTrack,
+            @RequestParam("filename") String filename
+    ) {
+        audioTrack.setTrackDescription(trackDescription);
+        audioTrack.setTrackSinger(trackSinger);
+        audioTrack.setFilename(filename);
+
+        if (form.keySet().contains("isNew")){
+            audioTrack.setNewTrack(true);
+        }
+        else {
+            audioTrack.setNewTrack(false);
+        }
+
+        audioTrackRepo.save(audioTrack);
+        return "redirect:/tracks/allTracks";
+    }
+
     /**
      * Метод возвращает все треки.
      * @param model
@@ -115,5 +139,17 @@ public class TrackController {
         }
         model.addAttribute("tracks", tracks);
         return "allTracks";
+    }
+
+    /**
+     * Метод возвращает страницу редактирования указанного трека.
+     * @param audioTrack
+     * @param model
+     * @return
+     */
+    @GetMapping("/edit/{audioTrack}")
+    public String getTrackEditPage(@PathVariable AudioTrack audioTrack, Model model) {
+        model.addAttribute("track", audioTrack);
+        return "trackEdit";
     }
 }
