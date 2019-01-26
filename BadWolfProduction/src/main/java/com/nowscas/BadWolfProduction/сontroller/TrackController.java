@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -85,6 +84,15 @@ public class TrackController {
         }
     }
 
+    /**
+     * Метод сохраняет трек после изменения.
+     * @param trackDescription
+     * @param trackSinger
+     * @param form
+     * @param audioTrack
+     * @param filename
+     * @return
+     */
     @PostMapping
     public String trackSave(
             @RequestParam String trackDescription,
@@ -106,6 +114,28 @@ public class TrackController {
 
         audioTrackRepo.save(audioTrack);
         return "redirect:/tracks/allTracks";
+    }
+
+    /**
+     * Метод удаляет трек.
+     * @param audioTrack
+     * @param model
+     * @return
+     */
+    @GetMapping("/deleteTrack/{audioTrack}")
+    public String deleteTrack(
+            @PathVariable AudioTrack audioTrack,
+            Map<String, Object> model
+    ) {
+        File file = new File(uploadPath + "/" + audioTrack.getFilename());
+        if (file.delete()) {
+            audioTrackRepo.delete(audioTrack);
+            return "redirect:/tracks/allTracks";
+        }
+        else {
+            model.put("message", "Удаляемый файл не найден");
+            return "redirect:/tracks/allTracks";
+        }
     }
 
     /**
