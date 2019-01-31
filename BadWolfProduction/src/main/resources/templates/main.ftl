@@ -51,7 +51,7 @@
                     </div>
                 </div>
             <#else>
-                Не найден ни 1 пост
+                Записи не найдены
             </#list>
         </div>
         <div class="col-3 border-right border-top border-bottom border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">

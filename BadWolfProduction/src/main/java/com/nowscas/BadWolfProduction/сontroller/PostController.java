@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -104,5 +105,65 @@ public class PostController {
         posts = mainPagePostRepo.findAll();
         model.addAttribute("posts", posts);
         return "allNews";
+    }
+
+    /**
+     * Метод возвращает страницу редактирования указанного поста.
+     * @param mainPagePost
+     * @param model
+     * @return
+     */
+    @GetMapping("/editPost/{mainPagePost}")
+    public String getPostEditPage(
+            @PathVariable MainPagePost mainPagePost,
+            Model model
+    ) {
+        model.addAttribute("post", mainPagePost);
+        return "postEdit";
+    }
+
+    /**
+     * Метод сохраняет отредактированную запись
+     * @param postHeader
+     * @param postBody
+     * @param post
+     * @return
+     */
+    @PostMapping("/changePost")
+    public String postSave(
+            @RequestParam String postHeader,
+            @RequestParam String postBody,
+            @RequestParam("id") MainPagePost post
+    ) {
+        post.setPostHeader(postHeader);
+        post.setPostBody(postBody);
+
+        mainPagePostRepo.save(post);
+        return "redirect:/";
+    }
+
+    /**
+     * Метод удаляет новость.
+     * @param mainPagePost
+     * @param model
+     * @return
+     */
+    @GetMapping("/deletePost/{mainPagePost}")
+    public String deleteTrack(
+            @PathVariable MainPagePost mainPagePost,
+            Model model
+    ) {
+        File file = new File(uploadPath + "/" + mainPagePost.getFilename());
+        if (file.delete()) {
+            mainPagePostRepo.delete(mainPagePost);
+            return "redirect:/allPosts";
+        }
+        else {
+            Iterable<MainPagePost> posts;
+            posts = mainPagePostRepo.findAll();
+            model.addAttribute("posts", posts);
+            model.addAttribute("message", "Удаляемый файл не найден");
+            return "allNews";
+        }
     }
 }

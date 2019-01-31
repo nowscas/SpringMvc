@@ -21,7 +21,7 @@ ${message?ifExists}
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div style="text-align: right">
-        <input type="submit" value="Добавить трек"/>
+        <input type="submit" value="Добавить новость"/>
     </div>
 </form>
 </div>

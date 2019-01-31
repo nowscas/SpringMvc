@@ -90,7 +90,6 @@ public class TrackController {
      * @param trackSinger
      * @param form
      * @param audioTrack
-     * @param filename
      * @return
      */
     @PostMapping
@@ -98,12 +97,10 @@ public class TrackController {
             @RequestParam String trackDescription,
             @RequestParam String trackSinger,
             @RequestParam Map<String, String> form,
-            @RequestParam("id") AudioTrack audioTrack,
-            @RequestParam("filename") String filename
+            @RequestParam("id") AudioTrack audioTrack
     ) {
         audioTrack.setTrackDescription(trackDescription);
         audioTrack.setTrackSinger(trackSinger);
-        audioTrack.setFilename(filename);
 
         if (form.keySet().contains("isNew")){
             audioTrack.setNewTrack(true);

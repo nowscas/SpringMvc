@@ -18,7 +18,6 @@
         <label class="form-check-label">New Track</label>
     </div>
     <input type="hidden" name="id" value="${track.id}">
-    <input type="hidden" name="filename" value="${track.filename}">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <button type="submit">Сохранить</button>
 </from>
