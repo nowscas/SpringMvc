@@ -1,10 +1,9 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<div style="text-align: center;">Редактор треков</div>
+<div style="text-align: center; font-size: 200%">Редактор треков</div>
 
-<link rel="stylesheet" href="/static/trackEditStyle.css">
-<div style="margin:10% 10% 0 10%">
+<div style="margin:5% 10% 0 10%">
 <form action="/tracks" method="post">
     <div class="form-group">
         <label for="formGroupTrackSinger">Испонитель</label>
