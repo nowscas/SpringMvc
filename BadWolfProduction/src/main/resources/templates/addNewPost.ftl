@@ -3,11 +3,27 @@
 <@c.page>
 
 ${message?ifExists}
+
+<div style="text-align: center; font-size: 200%">Добавление новости</div>
+
+<div style="margin:5% 10% 0 10%">
 <form method="post" action="addNewPost" enctype="multipart/form-data">
-    <input type="text" name="description" placeholder="Введите тему поста" />
-    <input type="text" name="text" placeholder="Введите текст поста" />
-    <input type="file" name="file">
+    <div class="form-group">
+        <label for="formGroupPostHeader">Заголовок</label>
+        <input type="text" class="form-control" name="description" placeholder="Введите тему поста">
+    </div>
+    <div class="form-group">
+        <label for="formGroupPostBody">Текст новости</label>
+        <input type="text" class="form-control" name="text" placeholder="Введите текст поста">
+    </div>
+    <div>
+        <input type="file" name="file">
+    </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <button type="submit">Опубликовать пост</button>
+    <div style="text-align: right">
+        <input type="submit" value="Добавить трек"/>
+    </div>
 </form>
+</div>
+
 </@c.page>
