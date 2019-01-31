@@ -1,24 +1,16 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
-import com.nowscas.BadWolfProduction.domain.Role;
 import com.nowscas.BadWolfProduction.domain.User;
-import com.nowscas.BadWolfProduction.service.ImageRedactor;
-import com.nowscas.BadWolfProduction.repos.UserRepo;
-import com.nowscas.BadWolfProduction.service.StringRedactor;
+import com.nowscas.BadWolfProduction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Класс отвечает за сохранение нового пользователя в БД.
@@ -26,14 +18,7 @@ import java.util.UUID;
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserRepo userRepo;
-    @Autowired
-    private ImageRedactor imageRedactor;
-    @Autowired
-    private StringRedactor fileNameRedactor;
-
-    @Value("${upload.imagePath}")
-    private String uploadPath;
+    private UserService userService;
 
     /**
      * Метод возвращает страницу регистрации.
@@ -57,45 +42,23 @@ public class RegistrationController {
             @RequestParam("file") MultipartFile file,
             User user, Map<String, Object> model
     ) throws IOException {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
 
-        if (userFromDb != null) {
+        if (!userService.ifUserExist(user)) {
             model.put("message", "User exists!");
             return "registration";
         }
-
-        if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-            if (!file.getContentType().contains("image")) {
-                model.put("message", "Выбран не подходящий файл!");
-                return "registration";
-            }
-
-            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
-            File uploadDir = new File(uploadPath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + filename;
-
-            try {
-                File output = new File(uploadPath +  "/" + resultFilename);
-                ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 40, 40), "png", output);
-            }
-            catch (NullPointerException e) {
-                model.put("message", "Не подходящий формат изображения!");
-                return "registration";
-            }
-            user.setFilename(resultFilename);
-        }
-        else {
-            user.setFilename("defaultImage.jpg");
+        if (!file.getContentType().contains("image")) {
+            model.put("message", "Выбран не подходящий файл!");
+            return "registration";
         }
 
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
+        try {
+            userService.addUser(user, file);
+        }
+        catch (NullPointerException e) {
+            model.put("message", "Не подходящий формат изображения!");
+            return "registration";
+        }
         return "redirect:/login";
     }
 }

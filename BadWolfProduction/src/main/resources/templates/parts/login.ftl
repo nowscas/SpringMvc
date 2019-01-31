@@ -1,5 +1,5 @@
 <#macro login path isRegisterForm>
-<form action="${path}" method="post">
+<form action="${path}" method="post" enctype="multipart/form-data">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Имя пользователя:</label>
         <div class="col-sm-6">
