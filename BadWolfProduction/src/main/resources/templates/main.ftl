@@ -1,3 +1,4 @@
+<#include "parts/security.ftl">
 <#import "parts/common.ftl" as c>
 
 <@c.page>
@@ -29,6 +30,11 @@
             </#list>
         </div>
         <div class="col-5 border border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
+            <div style="text-align: center">
+                <#if isModer>
+                    <a class="nav-link" style="color: #006BD6;" href="/addNewPost">Добавить новость</a>
+                </#if>
+            </div>
             <#list posts as post>
                 <div class="card my-3" style="width: 18rem;">
                     <div class="card-header">
