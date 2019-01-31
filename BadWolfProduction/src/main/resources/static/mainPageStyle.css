@@ -23,6 +23,7 @@
 .card {
     width: 90% !important;
     margin: auto;
+    color: black;
 }
 
 .card-header {

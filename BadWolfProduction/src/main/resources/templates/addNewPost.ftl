@@ -14,7 +14,7 @@ ${message?ifExists}
     </div>
     <div class="form-group">
         <label for="formGroupPostBody">Текст новости</label>
-        <input type="text" class="form-control" name="text" placeholder="Введите текст поста">
+        <textarea class="form-control" name="text" placeholder="Введите текст поста" rows="5"></textarea>
     </div>
     <div>
         <input type="file" name="file">

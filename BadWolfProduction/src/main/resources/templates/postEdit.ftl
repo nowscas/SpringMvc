@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         <label for="formGroupPostBody">Содержимое</label>
-        <input type="text" class="form-control" name="postBody" value="${post.postBody}">
+        <textarea class="form-control" name="postBody" rows="5">${post.postBody}</textarea>
     </div>
     <input type="hidden" name="id" value="${post.id}">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
