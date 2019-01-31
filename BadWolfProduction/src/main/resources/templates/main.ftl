@@ -18,10 +18,12 @@
     <div class="row">
         <div class="col-4 border-left border-top border-bottom border-secondary rounded">
             <#list tracks as track>
-                <div style="margin-top: 30px; margin-left: 20px;"><a class="nav-link" href="/tracks/${track.trackSinger}">${track.trackSinger}</a> - ${track.trackDescription}</div>
-                <audio controls preload="none" style="width: 100%;">
-                    <source src=/audio/${track.filename} type="audio/mpeg">
-                </audio>
+                <#if track.newTrack>
+                    <div style="margin-top: 30px; margin-left: 20px;"><a class="nav-link" href="/tracks/${track.trackSinger}">${track.trackSinger}</a> - ${track.trackDescription}</div>
+                    <audio controls preload="none" style="width: 100%;">
+                        <source src=/audio/${track.filename} type="audio/mpeg">
+                    </audio>
+                </#if>
             <#else>
                 Треки не найдены
             </#list>
