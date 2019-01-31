@@ -1,0 +1,17 @@
+.container {
+    padding: 1%;
+}
+
+.card {
+    width: 40%;
+    margin: auto !important;
+    color: black;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-footer {
+    text-align: right;
+}
