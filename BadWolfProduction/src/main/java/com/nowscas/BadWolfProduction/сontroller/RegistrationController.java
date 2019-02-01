@@ -47,7 +47,7 @@ public class RegistrationController {
             model.put("message", "User exists!");
             return "registration";
         }
-        if (!file.getContentType().contains("image")) {
+        if (!file.isEmpty() & !file.getContentType().contains("image")) {
             model.put("message", "Выбран не подходящий файл!");
             return "registration";
         }

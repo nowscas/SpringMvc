@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Интерфейс для работы с записями аудиотреков в БД.
  */
-public interface AudioTrackRepo extends CrudRepository<AudioTrack, Integer> {
+public interface AudioTrackRepo extends CrudRepository<AudioTrack, Long> {
 
     /**
      * Метод возвращает песни из БД по имени исполнителя.

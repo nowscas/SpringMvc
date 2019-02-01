@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class MainPagePost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String postHeader;
     private String postBody;
     private String filename;
@@ -27,11 +27,11 @@ public class MainPagePost {
     public MainPagePost() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
