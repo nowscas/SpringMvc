@@ -16,7 +16,7 @@
               <a class="nav-link" href="/allPosts">Новости</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/FAQ">F.A.Q.</a>
+              <a class="nav-link" href="/faq">F.A.Q.</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/tracks/allTracks">Наши работы</a>
