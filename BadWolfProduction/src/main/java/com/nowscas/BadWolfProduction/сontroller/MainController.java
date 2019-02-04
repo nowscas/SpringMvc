@@ -36,22 +36,6 @@ public class MainController {
     }
 
     /**
-     * Метод возврадает страницу с вопросами и ответами.
-     */
-    @GetMapping("/FAQ")
-    public String getFAQ() {
-        return "FAQ";
-    }
-
-    /**
-     * Метод возврадает страницу с ценами.
-     */
-    @GetMapping("/prices")
-    public String getPrices() {
-        return "prices";
-    }
-
-    /**
      * Метод возврадает страницу с контактами.
      */
     @GetMapping("/contacts")
