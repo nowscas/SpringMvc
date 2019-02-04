@@ -8,10 +8,18 @@
         </div>
     </#if>
     <#list faqPosts as post>
-        ${post.question}
+        <div class="mt-4" style="max-width: 90%; margin: auto;  color: black;">
+            <div class="row" style="margin: auto; background-color: #A3A3A3">
+                ${post.question}
+            </div>
 
-        ${post.answer}
-
+            <div class="row" style="margin: auto; background-color: #969696;">
+                ${post.answer}
+            </div>
+            <#if isAdmin>
+                <a class="nav-link" href="/deleteFaq/${post.id}">удалить</a>
+            </#if>
+        </div>
     <#else>
         Вопросы не найдены
     </#list>
