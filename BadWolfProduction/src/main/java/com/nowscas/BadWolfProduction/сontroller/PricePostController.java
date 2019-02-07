@@ -104,8 +104,11 @@ public class PricePostController {
             return "redirect:/prices";
         }
         else {
+            Iterable<PricePost> pricePosts;
+            pricePosts = pricePostRepo.findAll();
+            model.put("pricePosts", pricePosts);
             model.put("message", "Удаляемый файл не найден");
-            return "redirect:/prices";
+            return "prices";
         }
     }
 }
