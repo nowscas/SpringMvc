@@ -20,6 +20,8 @@ public class MvcConfig implements WebMvcConfigurer {
     private String uploadMusicPath;
     @Value("${upload.decarationPath}")
     private String uploadDecarationPath;
+    @Value("${upload.priceExamplePath}")
+    private String uploadPriceAudioPath;
 
     /**
      * На данный момент в методе используется только встроенная в Spring система авторизации,
@@ -44,6 +46,8 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file://" + uploadMusicPath + "/");
         registry.addResourceHandler("/decoration/***")
                 .addResourceLocations("file://" + uploadDecarationPath + "/");
+        registry.addResourceHandler("/priceAudio/***")
+                .addResourceLocations("file://" + uploadPriceAudioPath + "/");
         registry.addResourceHandler("/static/***")
                 .addResourceLocations("classpath:/static/");
     }

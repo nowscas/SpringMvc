@@ -2,6 +2,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
+${message?ifExists}
 
 <link rel="stylesheet" href="/static/audioPage.css">
     <#list tracks as track>

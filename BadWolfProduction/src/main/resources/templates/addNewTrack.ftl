@@ -7,11 +7,11 @@ ${message?ifExists}
 <div style="margin:5% 10% 0 10%">
 <form action="/tracks/addNewTrack" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="formGroupTrackSinger">Испонитель</label>
+        <label for="formGroupTrackSinger">Название</label>
         <input type="text" class="form-control" name="description" placeholder="Введите название трека">
     </div>
     <div class="form-group">
-        <label for="formGroupTrackDescription">Название</label>
+        <label for="formGroupTrackDescription">Исполнитель</label>
         <input type="text" class="form-control" name="singer" placeholder="Введите исполнителя трека">
     </div>
     <div>

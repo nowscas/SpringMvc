@@ -88,14 +88,24 @@ public class PricePostController {
             return "addPricePost";
         }
     }
-//
-//    /**
-//     * Метод удаляет переданное FAQ.
-//     */
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @GetMapping("/deleteFaq/{faqPost}")
-//    public String deleteFaq(@PathVariable FaqPost faqPost) {
-//        faqPostRepo.delete(faqPost);
-//        return "redirect:/faq";
-//    }
+
+    /**
+     * Метод удаляет переданную запись цены.
+     */
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/deletePrice/{pricePost}")
+    public String deletePrice(
+            @PathVariable PricePost pricePost,
+            Map<String, Object> model
+    ) {
+        File file = new File(uploadPath + "/" + pricePost.getFilename());
+        if (file.delete()) {
+            pricePostRepo.delete(pricePost);
+            return "redirect:/prices";
+        }
+        else {
+            model.put("message", "Удаляемый файл не найден");
+            return "redirect:/prices";
+        }
+    }
 }

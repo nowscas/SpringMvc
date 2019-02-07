@@ -1,0 +1,18 @@
+.row {
+    max-width: 80%;
+    margin: auto;
+    height: 56px !important;
+    background: #3B3A3A;
+}
+
+.col-2 {
+    margin: auto !important;
+}
+
+.col-7 {
+    margin: auto !important;
+}
+
+.col-1 {
+    margin: auto !important;
+}
