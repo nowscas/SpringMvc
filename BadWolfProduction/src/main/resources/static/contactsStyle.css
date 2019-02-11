@@ -1,0 +1,16 @@
+.header {
+    text-align: center;
+     font-size: 300%;
+     margin-bottom: 5%;
+}
+
+.contact {
+    margin-left: 10%;
+    text-align: left;
+    font-size: 200%;
+    white-space: nowrap;
+}
+
+.name {
+    margin-left: 30%;
+}
