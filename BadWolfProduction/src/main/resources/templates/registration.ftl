@@ -2,8 +2,9 @@
 <#import "parts/login.ftl" as l>
 
 <@c.page>
-<div class="mb-4">Регистрация нового пользователя</div>
-${message?ifExists}
+<div style="text-align: center; font-size: 200%; margin-bottom: 3%">Регистрация нового пользователя</div>
+
+<div style="text-align: center; font-size: 200%; margin-bottom: 3%">${message?ifExists}</div>
 <@l.login "/registration" true />
 </@c.page>
 

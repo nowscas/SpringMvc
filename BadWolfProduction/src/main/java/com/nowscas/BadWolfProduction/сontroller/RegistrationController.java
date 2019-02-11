@@ -44,7 +44,7 @@ public class RegistrationController {
     ) throws IOException {
 
         if (!userService.ifUserExist(user)) {
-            model.put("message", "User exists!");
+            model.put("message", "Пользователь с указанным логином уже существует!");
             return "registration";
         }
         if (!file.isEmpty() & !file.getContentType().contains("image")) {

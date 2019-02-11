@@ -1,6 +1,7 @@
 <#macro login path isRegisterForm>
+<link rel="stylesheet" href="/static/loginStyle.css">
 <form action="${path}" method="post" enctype="multipart/form-data">
-    <div class="form-group row">
+        <div class="form-group row">
         <label class="col-sm-2 col-form-label">Имя пользователя:</label>
         <div class="col-sm-6">
             <input type="text" name="username" class="form-control" placeholder="Имя пользователя" />
@@ -12,9 +13,7 @@
             <input type="password" name="password" class="form-control" placeholder="Пароль" />
         </div>
     </div>
-    <#if !isRegisterForm>
-        <a href="/registration" style="color:white">Зарегистрироваться</a>
-    <#else>
+    <#if isRegisterForm>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Изображение:</label>
             <div class="col-sm-6">
@@ -22,7 +21,14 @@
             </div>
         </div>
     </#if>
-    <button class="btn btn-light" type="submit"><#if isRegisterForm>Зарегистрироваться<#else>Войти</#if></button>
+    <div class="enterbtn">
+        <button class="btn btn-light" type="submit"><#if isRegisterForm>Зарегистрироваться<#else>Войти</#if></button>
+    </div>
+    <#if !isRegisterForm>
+        <div class="regbnt">
+            <a href="/registration" style="color:white">Регистрация</a>
+        </div>
+    </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 </form>
 </#macro>
