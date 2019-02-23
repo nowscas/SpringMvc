@@ -12,6 +12,7 @@ public class MainPagePost {
     private Long id;
     private String postHeader;
     private String postBody;
+    private String youtubeLink;
     private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -61,6 +62,14 @@ public class MainPagePost {
 
     public String getAuthorName() {
         return author != null ? author.getUsername() : "unknown author";
+    }
+
+    public String getYoutubeLink() {
+        return youtubeLink;
+    }
+
+    public void setYoutubeLink(String youtubeLink) {
+        this.youtubeLink = youtubeLink;
     }
 
     public String getFilename() {

@@ -16,6 +16,10 @@ ${message?ifExists}
         <label for="formGroupPostBody">Текст новости</label>
         <textarea class="form-control" name="text" placeholder="Введите текст поста" rows="5"></textarea>
     </div>
+    <div class="form-group">
+        <label for="formGroupYoutubeLink">Видео с YouTube</label>
+        <input type="text" class="form-control" name="youtubeLink" placeholder="Вставьте ссылку на видео с YouTube">
+    </div>
     <div>
         <input type="file" name="file">
     </div>

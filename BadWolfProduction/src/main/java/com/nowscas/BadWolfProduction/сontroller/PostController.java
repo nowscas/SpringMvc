@@ -59,10 +59,14 @@ public class PostController {
             @AuthenticationPrincipal User user,
             @RequestParam String description,
             @RequestParam String text, Map<String, Object> model,
+            @RequestParam String youtubeLink,
             @RequestParam("file") MultipartFile file
             ) throws IOException {
         MainPagePost mainPagePost = new MainPagePost(description, text, user);
 
+        if (!youtubeLink.equals("")) {
+            mainPagePost.setYoutubeLink(youtubeLink);
+        }
         if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
             if (!file.getContentType().contains("image")) {
                 model.put("message", "Выбран не подходящий файл!");
@@ -153,17 +157,9 @@ public class PostController {
             @PathVariable MainPagePost mainPagePost,
             Model model
     ) {
+        mainPagePostRepo.delete(mainPagePost);
         File file = new File(uploadPath + "/" + mainPagePost.getFilename());
-        if (file.delete()) {
-            mainPagePostRepo.delete(mainPagePost);
-            return "redirect:/allPosts";
-        }
-        else {
-            Iterable<MainPagePost> posts;
-            posts = mainPagePostRepo.findAll();
-            model.addAttribute("posts", posts);
-            model.addAttribute("message", "Удаляемый файл не найден");
-            return "allNews";
-        }
+        file.delete();
+        return "redirect:/allPosts";
     }
 }

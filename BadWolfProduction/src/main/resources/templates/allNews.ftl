@@ -28,6 +28,6 @@ ${message?ifExists}
         </div>
     </div>
     <#else>
-        Треки не найдены
+        Новостей пока нет
     </#list>
 </@c.page>
