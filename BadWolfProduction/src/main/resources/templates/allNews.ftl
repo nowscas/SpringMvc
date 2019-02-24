@@ -14,6 +14,11 @@ ${message?ifExists}
             <#if post.filename??>
                 <img src="/postImg/${post.filename}" class="card-img-top">
             </#if>
+            <#if post.youtubeLink??>
+                <div class="card-img-top mt-2">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/${post.youtubeLink}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </#if>
             <div class="m-2">
                 ${post.postBody}
             </div>
@@ -28,6 +33,6 @@ ${message?ifExists}
         </div>
     </div>
     <#else>
-        Новостей пока нет
+        <div style="text-align: center; font-size: 200%">Новостей пока нет</div>
     </#list>
 </@c.page>
