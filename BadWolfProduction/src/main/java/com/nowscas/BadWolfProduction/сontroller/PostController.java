@@ -4,6 +4,7 @@ import com.nowscas.BadWolfProduction.domain.MainPagePost;
 import com.nowscas.BadWolfProduction.domain.User;
 import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
 import com.nowscas.BadWolfProduction.service.ImageRedactor;
+import com.nowscas.BadWolfProduction.service.IterableService;
 import com.nowscas.BadWolfProduction.service.StringRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Класс отвечает за работу с постами.
@@ -33,6 +33,8 @@ public class PostController {
     private ImageRedactor imageRedactor;
     @Autowired
     private StringRedactor fileNameRedactor;
+    @Autowired
+    private IterableService iterableService;
 
     @Value("${upload.postImagePath}")
     private String uploadPath;
@@ -107,7 +109,7 @@ public class PostController {
     public String getAllPosts(Model model) {
         Iterable<MainPagePost> posts;
         posts = mainPagePostRepo.findAll();
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", iterableService.revertPosts((List)posts));
         return "allNews";
     }
 

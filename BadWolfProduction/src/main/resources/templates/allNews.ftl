@@ -2,7 +2,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-${message?ifExists}
+<div style="text-align: center; font-size: 200%">${message?ifExists}</div>
 
 <link rel="stylesheet" href="/static/allNewsStyle.css">
     <#list posts as post>

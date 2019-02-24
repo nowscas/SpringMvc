@@ -4,10 +4,12 @@ import com.nowscas.BadWolfProduction.domain.AudioTrack;
 import com.nowscas.BadWolfProduction.domain.MainPagePost;
 import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
 import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
+import com.nowscas.BadWolfProduction.service.IterableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +21,8 @@ public class MainController {
     private AudioTrackRepo audioTrackRepo;
     @Autowired
     MainPagePostRepo mainPagePostRepo;
+    @Autowired
+    IterableService iterableService;
 
     /**
      * Метод возвращает главную страницу приложения.
@@ -30,8 +34,8 @@ public class MainController {
         Iterable<AudioTrack> tracks = audioTrackRepo.findAll();
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
 
-        model.put("tracks", tracks);
-        model.put("posts", posts);
+        model.put("tracks", iterableService.revertTracks((List)tracks));
+        model.put("posts", iterableService.revertPosts((List)posts));
         return "main";
     }
 

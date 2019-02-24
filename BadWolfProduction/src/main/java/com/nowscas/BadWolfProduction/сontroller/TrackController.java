@@ -2,6 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.AudioTrack;
 import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
+import com.nowscas.BadWolfProduction.service.IterableService;
 import com.nowscas.BadWolfProduction.service.StringRedactor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,6 +28,8 @@ public class TrackController {
     private AudioTrackRepo audioTrackRepo;
     @Autowired
     private StringRedactor fileNameRedactor;
+    @Autowired
+    private IterableService iterableService;
 
     @Value("${upload.musicPath}")
     private String uploadPath;
@@ -144,7 +148,7 @@ public class TrackController {
     public String getAllTracks(Model model) {
         Iterable<AudioTrack> tracks;
         tracks = audioTrackRepo.findAll();
-        model.addAttribute("tracks", tracks);
+        model.addAttribute("tracks", iterableService.revertTracks((List)tracks));
         return "allTracks";
     }
 
