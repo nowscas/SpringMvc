@@ -137,10 +137,12 @@ public class PostController {
     public String postSave(
             @RequestParam String postHeader,
             @RequestParam String postBody,
+            @RequestParam(required = false) String youtubeLink,
             @RequestParam("id") MainPagePost post
     ) {
         post.setPostHeader(postHeader);
         post.setPostBody(postBody);
+        post.setYoutubeLink(youtubeLink);
 
         mainPagePostRepo.save(post);
         return "redirect:/";

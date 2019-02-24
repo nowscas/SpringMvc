@@ -13,6 +13,12 @@
         <label for="formGroupPostBody">Содержимое</label>
         <textarea class="form-control" name="postBody" rows="5">${post.postBody}</textarea>
     </div>
+    <#if post.youtubeLink??>
+        <div class="form-group">
+            <label for="formGroupPostYoutubeLink">Ссылка на YouTube видео</label>
+            <textarea class="form-control" name="youtubeLink" rows="5">${post.youtubeLink}</textarea>
+        </div>
+    </#if>
     <input type="hidden" name="id" value="${post.id}">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <button type="submit">Сохранить</button>
