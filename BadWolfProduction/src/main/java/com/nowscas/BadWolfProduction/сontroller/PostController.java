@@ -44,7 +44,7 @@ public class PostController {
      * @return
      */
     @GetMapping("/addNewPost")
-    public String getNewPostTemplate(){
+    public String getNewPostPage(){
         return "addNewPost";
     }
 
@@ -95,9 +95,6 @@ public class PostController {
             mainPagePost.setFilename(resultFilename);
         }
         mainPagePostRepo.save(mainPagePost);
-
-        Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
-        model.put("posts", posts);
         return "redirect:/";
     }
 
