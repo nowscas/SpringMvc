@@ -36,7 +36,7 @@
                 </#if>
             </div>
             <#list posts as post>
-                <div class="card my-3" style="width: 18rem;">
+                <div class="card my-3">
                     <div class="card-header">
                         ${post.postHeader}
                     </div>
@@ -60,7 +60,16 @@
             </#list>
         </div>
         <div class="col-3 border-right border-top border-bottom border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
-
+            <#list stocks as stock>
+                <div class="card my-3">
+                    <div class="card-header">
+                        ${stock.stockHeader}
+                    </div>
+                    <div class="m-2">
+                        ${stock.stockBody}
+                    </div>
+                </div>
+            </#list>
         </div>
     </div>
 </div>
