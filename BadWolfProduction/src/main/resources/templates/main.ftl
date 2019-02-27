@@ -60,6 +60,11 @@
             </#list>
         </div>
         <div class="col-3 border-right border-top border-bottom border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
+            <div style="text-align: center">
+                <#if isAdmin>
+                    <a class="nav-link" style="color: #006BD6;" href="/addNewStock">Добавить акцию</a>
+                </#if>
+            </div>
             <#list stocks as stock>
                 <div class="card my-3">
                     <div class="card-header">
@@ -69,6 +74,11 @@
                         ${stock.stockBody}
                     </div>
                 </div>
+                <#if isAdmin>
+                    <div style="text-align: center;">
+                        <a class="nav-link" style = "color: red;"href="/deleteStock/${stock.id}">Удалить</a>
+                    </div>
+                </#if>
             </#list>
         </div>
     </div>

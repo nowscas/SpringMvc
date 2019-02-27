@@ -5,6 +5,7 @@ import com.nowscas.BadWolfProduction.repos.StockRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,6 +36,17 @@ public class StockController {
     ) {
         Stock stock = new Stock(stockHeader, text);
         stockRepo.save(stock);
+        return "redirect:/";
+    }
+
+    /**
+     * Метод удаляет акцию.
+     */
+    @GetMapping("/deleteStock/{stock}")
+    public String deleteStock(
+            @PathVariable Stock stock
+    ) {
+        stockRepo.delete(stock);
         return "redirect:/";
     }
 }
