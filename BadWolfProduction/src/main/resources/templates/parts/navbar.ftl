@@ -42,8 +42,6 @@
   <div class="navbar-text mr-3" style="color: #C2C1C1">${name}</div>
       <#if user??>
          <@l.logout />
-      <#else>
-          <@l.navbarLogin />
       </#if>
   </div>
 </nav>

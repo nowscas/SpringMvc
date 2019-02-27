@@ -20,45 +20,47 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    /**
-     * Метод возвращает страницу регистрации.
-     * @return
-     */
-    @GetMapping("/registration")
-    public String registration() {
-        return "registration";
-    }
+    //Пока что было решено убрать регистрацию
 
-    /**
-     * Метод сохраняет нового пользователя в БД с загруженным изображением или с defaultImage.
-     * @param file
-     * @param user
-     * @param model
-     * @return
-     * @throws IOException
-     */
-    @PostMapping("/registration")
-    public String addUser(
-            @RequestParam("file") MultipartFile file,
-            User user, Map<String, Object> model
-    ) throws IOException {
-
-        if (!userService.ifUserExist(user)) {
-            model.put("message", "Пользователь с указанным логином уже существует!");
-            return "registration";
-        }
-        if (!file.isEmpty() & !file.getContentType().contains("image")) {
-            model.put("message", "Выбран не подходящий файл!");
-            return "registration";
-        }
-
-        try {
-            userService.addUser(user, file);
-        }
-        catch (NullPointerException e) {
-            model.put("message", "Не подходящий формат изображения!");
-            return "registration";
-        }
-        return "redirect:/login";
-    }
+//    /**
+//     * Метод возвращает страницу регистрации.
+//     * @return
+//     */
+//    @GetMapping("/registration")
+//    public String registration() {
+//        return "registration";
+//    }
+//
+//    /**
+//     * Метод сохраняет нового пользователя в БД с загруженным изображением или с defaultImage.
+//     * @param file
+//     * @param user
+//     * @param model
+//     * @return
+//     * @throws IOException
+//     */
+//    @PostMapping("/registration")
+//    public String addUser(
+//            @RequestParam("file") MultipartFile file,
+//            User user, Map<String, Object> model
+//    ) throws IOException {
+//
+//        if (!userService.ifUserExist(user)) {
+//            model.put("message", "Пользователь с указанным логином уже существует!");
+//            return "registration";
+//        }
+//        if (!file.isEmpty() & !file.getContentType().contains("image")) {
+//            model.put("message", "Выбран не подходящий файл!");
+//            return "registration";
+//        }
+//
+//        try {
+//            userService.addUser(user, file);
+//        }
+//        catch (NullPointerException e) {
+//            model.put("message", "Не подходящий формат изображения!");
+//            return "registration";
+//        }
+//        return "redirect:/login";
+//    }
 }

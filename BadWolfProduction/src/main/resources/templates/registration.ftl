@@ -1,3 +1,5 @@
+<!-- Пока что убрал регистрацию
+
 <#import "parts/common.ftl" as c>
 <#import "parts/login.ftl" as l>
 
@@ -7,4 +9,6 @@
 <div style="text-align: center; font-size: 200%; margin-bottom: 3%">${message?ifExists}</div>
 <@l.login "/registration" true />
 </@c.page>
+
+-->
 
