@@ -3,7 +3,7 @@ package com.nowscas.BadWolfProduction.domain;
 import javax.persistence.*;
 
 /**
- * Сущность записи поста в БД.
+ * Сущность записи новости в БД.
  */
 @Entity
 public class MainPagePost {

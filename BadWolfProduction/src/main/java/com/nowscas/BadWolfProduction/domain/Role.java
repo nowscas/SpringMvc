@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Список ролей для пользователей.
+ * Пока что авторизацию убрали и роль нужна одна - админ.
  */
 public enum Role implements GrantedAuthority {
     USER, MODERATOR, ADMIN, ;

@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Сущность записи цены в БД.
+ */
 @Entity
 public class PricePost {
 
