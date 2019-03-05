@@ -40,15 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/tracks/***"
                             , "/prices"
                             , "/contacts"
-                            , "/faq").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                .and()
-                    .logout()
-                    .permitAll();
+                            , "/faq"
+                            , "/login").permitAll()
+                    .anyRequest().authenticated();
     }
 
     /**
