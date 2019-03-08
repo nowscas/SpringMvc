@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Класс для работы с Iterable коллекциями
+ * Класс для работы с Iterable коллекциями.
  */
 @Service
 public class IterableService {

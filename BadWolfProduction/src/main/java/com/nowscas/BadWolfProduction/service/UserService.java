@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 /**
- * Класс возвращает данные пользователя.
+ * Класс для работы с данными пользователя.
  */
 @Service
 public class UserService implements UserDetailsService {
@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
     private String uploadPath;
 
     /**
-     * Метод возвращает пользователя из БД по имени текущего пользователя.
+     * Метод возвращает пользователя из БД по имени.
      * @param username
      * @return
      * @throws UsernameNotFoundException
@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Метод
+     * Метод записи пользователя в БД.
      */
     public void addUser(User user, MultipartFile file) throws IOException {
         if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
