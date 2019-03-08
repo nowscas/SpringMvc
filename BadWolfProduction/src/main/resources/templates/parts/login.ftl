@@ -13,6 +13,9 @@
             <input type="password" name="password" class="form-control" placeholder="Пароль" />
         </div>
     </div>
+    <div class="enterbtn">
+        <button class="btn btn-light" type="submit">Войти</button>
+    </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
 </form>
 </#macro>

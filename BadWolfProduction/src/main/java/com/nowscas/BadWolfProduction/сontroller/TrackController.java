@@ -148,7 +148,7 @@ public class TrackController {
     public String getAllTracks(Model model) {
         Iterable<AudioTrack> tracks;
         tracks = audioTrackRepo.findAll();
-        model.addAttribute("tracks", iterableService.revertTracks((List)tracks));
+        model.addAttribute("tracks", iterableService.revertList((List)tracks));
         return "allTracks";
     }
 

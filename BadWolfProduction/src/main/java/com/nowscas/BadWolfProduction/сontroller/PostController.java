@@ -106,7 +106,7 @@ public class PostController {
     public String getAllPosts(Model model) {
         Iterable<MainPagePost> posts;
         posts = mainPagePostRepo.findAll();
-        model.addAttribute("posts", iterableService.revertPosts((List)posts));
+        model.addAttribute("posts", iterableService.revertList((List)posts));
         return "allNews";
     }
 

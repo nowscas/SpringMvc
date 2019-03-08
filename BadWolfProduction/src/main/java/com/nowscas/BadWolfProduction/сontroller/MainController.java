@@ -39,9 +39,9 @@ public class MainController {
         Iterable<MainPagePost> posts = mainPagePostRepo.findAll();
         Iterable<Stock> stocks = stockRepo.findAll();
 
-        model.put("tracks", iterableService.revertTracks((List)tracks));
-        model.put("posts", iterableService.revertPosts((List)posts));
-        model.put("stocks", iterableService.revertStocks((List)stocks));
+        model.put("tracks", iterableService.revertList((List)tracks));
+        model.put("posts", iterableService.revertList((List)posts));
+        model.put("stocks", iterableService.revertList((List)stocks));
         return "main";
     }
 
