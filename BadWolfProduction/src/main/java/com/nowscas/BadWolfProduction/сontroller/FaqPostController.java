@@ -2,6 +2,7 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.FaqPost;
 import com.nowscas.BadWolfProduction.repos.FaqPostRepo;
+import com.nowscas.BadWolfProduction.service.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,19 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FaqPostController {
 
     @Autowired
-    private FaqPostRepo faqPostRepo;
+    private FaqService faqService;
 
     /**
-     * Метод возвращает страницу FAQ.
+     * Метод получает записи FAQ и возвращает страницу FAQ.
      * @param model
      * @return
      */
     @GetMapping("/faq")
     public String getFaqPage(Model model) {
-
-        Iterable<FaqPost> faqPosts;
-        faqPosts = faqPostRepo.findAll();
-        model.addAttribute("faqPosts", faqPosts);
+        model.addAttribute("faqPosts", faqService.getFaqPosts());
         return "FAQ";
     }
 
@@ -38,34 +36,27 @@ public class FaqPostController {
      * Метод возвращает страницу добавления нового FAQ.
      * @return
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/addFaqPost")
     public String getAddPage() {
         return "addNewFaq";
     }
 
     /**
-     * Метод сохраняет новое FAQ.
+     * Метод дает команду на сохранение нового FAQ и возвращает страницу FAQ.
      * @return
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/addNewFaq")
-    public String addFaqQuestion(
-            @RequestParam String question,
-            @RequestParam String answer
-    ) {
-        FaqPost faqPost = new FaqPost(question, answer);
-        faqPostRepo.save(faqPost);
+    public String addFaqQuestion(@RequestParam String question, @RequestParam String answer) {
+        faqService.addFaqQuestion(question, answer);
         return "redirect:/faq";
     }
 
     /**
-     * Метод удаляет переданное FAQ.
+     * Метод дает команду на удаление переданного FAQ и возвращает страницу FAQ.
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/deleteFaq/{faqPost}")
     public String deleteFaq(@PathVariable FaqPost faqPost) {
-        faqPostRepo.delete(faqPost);
+        faqService.deleteFaq(faqPost);
         return "redirect:/faq";
     }
 }
