@@ -2,12 +2,8 @@ package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.MainPagePost;
 import com.nowscas.BadWolfProduction.domain.User;
-import com.nowscas.BadWolfProduction.repos.MainPagePostRepo;
-import com.nowscas.BadWolfProduction.service.ImageRedactor;
-import com.nowscas.BadWolfProduction.service.IterableService;
-import com.nowscas.BadWolfProduction.service.StringRedactor;
+import com.nowscas.BadWolfProduction.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Класс отвечает за работу с постами.
@@ -28,19 +22,20 @@ import java.util.*;
 @Controller
 public class PostController {
     @Autowired
-    private MainPagePostRepo mainPagePostRepo;
-    @Autowired
-    private ImageRedactor imageRedactor;
-    @Autowired
-    private StringRedactor fileNameRedactor;
-    @Autowired
-    private IterableService iterableService;
-
-    @Value("${upload.postImagePath}")
-    private String uploadPath;
+    private PostService postService;
 
     /**
-     * Метод возвращает страницу добавления нового поста.
+     * Метод получает записи новостей и возвращает страницу со всеми новостями.
+     * @return
+     */
+    @GetMapping("/news")
+    public String getAllPosts(Model model) {
+        model.addAttribute("posts", postService.getMainPagePosts());
+        return "allNews";
+    }
+
+    /**
+     * Метод возвращает страницу добавления новой новости.
      * @return
      */
     @GetMapping("/addNewPost")
@@ -63,51 +58,14 @@ public class PostController {
             @RequestParam String text, Map<String, Object> model,
             @RequestParam String youtubeLink,
             @RequestParam("file") MultipartFile file
-            ) throws IOException {
-        MainPagePost mainPagePost = new MainPagePost(description, text, user);
-
-        if (!youtubeLink.equals("")) {
-            mainPagePost.setYoutubeLink(youtubeLink);
+    ) throws IOException {
+        if (postService.addMainPagePost(description, text, user, youtubeLink, file)) {
+            return "redirect:/";
+        } else {
+            model.put("message", "Выбран не подходящий файл!");
+            return "addNewPost";
         }
-        if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-            if (!file.getContentType().contains("image")) {
-                model.put("message", "Выбран не подходящий файл!");
-                return "addNewPost";
-            }
 
-            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
-            File uploadDir = new File(uploadPath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + filename;
-
-            try {
-                File output = new File(uploadPath +  "/" + resultFilename);
-                ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 400, 500), "png", output);
-            }
-            catch (NullPointerException e) {
-                model.put("message", "Не подходящий формат изображения!");
-                return "addNewPost";
-            }
-            mainPagePost.setFilename(resultFilename);
-        }
-        mainPagePostRepo.save(mainPagePost);
-        return "redirect:/";
-    }
-
-    /**
-     * Метод возвращает страницу со всеми постами.
-     * @return
-     */
-    @GetMapping("/allPosts")
-    public String getAllPosts(Model model) {
-        Iterable<MainPagePost> posts;
-        posts = mainPagePostRepo.findAll();
-        model.addAttribute("posts", iterableService.revertList((List)posts));
-        return "allNews";
     }
 
     /**
@@ -117,16 +75,13 @@ public class PostController {
      * @return
      */
     @GetMapping("/editPost/{mainPagePost}")
-    public String getPostEditPage(
-            @PathVariable MainPagePost mainPagePost,
-            Model model
-    ) {
+    public String getPostEditPage(@PathVariable MainPagePost mainPagePost, Model model) {
         model.addAttribute("post", mainPagePost);
         return "postEdit";
     }
 
     /**
-     * Метод сохраняет отредактированную запись
+     * Метод дает команду на сохранение отредактированной записи и возвращает главную страницу.
      * @param postHeader
      * @param postBody
      * @param post
@@ -139,16 +94,12 @@ public class PostController {
             @RequestParam(required = false) String youtubeLink,
             @RequestParam("id") MainPagePost post
     ) {
-        post.setPostHeader(postHeader);
-        post.setPostBody(postBody);
-        post.setYoutubeLink(youtubeLink);
-
-        mainPagePostRepo.save(post);
+        postService.saveChanged(postHeader, postBody, youtubeLink, post);
         return "redirect:/";
     }
 
     /**
-     * Метод удаляет новость.
+     * Метод дает команду на удаление переданной новости и возвращает страницу новостей.
      * @param mainPagePost
      * @param model
      * @return
@@ -158,9 +109,7 @@ public class PostController {
             @PathVariable MainPagePost mainPagePost,
             Model model
     ) {
-        mainPagePostRepo.delete(mainPagePost);
-        File file = new File(uploadPath + "/" + mainPagePost.getFilename());
-        file.delete();
-        return "redirect:/allPosts";
+        postService.deletePost(mainPagePost);
+        return "redirect:/news";
     }
 }

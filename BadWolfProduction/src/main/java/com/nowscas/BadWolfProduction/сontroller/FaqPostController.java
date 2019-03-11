@@ -1,10 +1,8 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.FaqPost;
-import com.nowscas.BadWolfProduction.repos.FaqPostRepo;
 import com.nowscas.BadWolfProduction.service.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

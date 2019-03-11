@@ -2,8 +2,7 @@
 
 <@c.page>
 
-${message?ifExists}
-
+<div style="text-align: center; font-size: 200%">${message?ifExists}</div>
 <div style="text-align: center; font-size: 200%">Добавление новости</div>
 
 <div style="margin:5% 10% 0 10%">
