@@ -100,8 +100,8 @@ public class PostService {
      * @param mainPagePost
      */
     public void deletePost(MainPagePost mainPagePost) {
-        mainPagePostRepo.delete(mainPagePost);
         File file = new File(uploadPath + "/" + mainPagePost.getFilename());
+        mainPagePostRepo.delete(mainPagePost);
         file.delete();
     }
 }
