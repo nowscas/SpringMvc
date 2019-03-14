@@ -1,7 +1,7 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.Stock;
-import com.nowscas.BadWolfProduction.repos.StockRepo;
+import com.nowscas.BadWolfProduction.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class StockController {
     @Autowired
-    private StockRepo stockRepo;
+    private StockService stockService;
 
     /**
      * Метод возвращает страницу добавления акции.
@@ -26,27 +26,25 @@ public class StockController {
     }
 
     /**
-     * Метод сохраняет новую акцию и возвращает главную странцу.
+     * Метод дает команду на сохранение новой акции и возвращает главную странцу.
      */
     @PostMapping("/addNewStock")
     public String addStock(
-//   ???         @AuthenticationPrincipal User user,
             @RequestParam String stockHeader,
             @RequestParam String text
     ) {
-        Stock stock = new Stock(stockHeader, text);
-        stockRepo.save(stock);
+        stockService.addStock(stockHeader, text);
         return "redirect:/";
     }
 
     /**
-     * Метод удаляет акцию.
+     * Метод дает команду на удаление акции и возвращает главную страницу.
      */
     @GetMapping("/deleteStock/{stock}")
     public String deleteStock(
             @PathVariable Stock stock
     ) {
-        stockRepo.delete(stock);
+        stockService.deleteStock(stock);
         return "redirect:/";
     }
 }
