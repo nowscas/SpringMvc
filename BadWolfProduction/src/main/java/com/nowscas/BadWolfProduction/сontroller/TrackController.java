@@ -1,22 +1,16 @@
 package com.nowscas.BadWolfProduction.сontroller;
 
 import com.nowscas.BadWolfProduction.domain.AudioTrack;
-import com.nowscas.BadWolfProduction.repos.AudioTrackRepo;
-import com.nowscas.BadWolfProduction.service.IterableService;
-import com.nowscas.BadWolfProduction.service.StringRedactor;
+import com.nowscas.BadWolfProduction.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Класс отвечает за работу с аудиотреками.
@@ -25,14 +19,31 @@ import java.util.UUID;
 @RequestMapping("/tracks")
 public class TrackController {
     @Autowired
-    private AudioTrackRepo audioTrackRepo;
-    @Autowired
-    private StringRedactor fileNameRedactor;
-    @Autowired
-    private IterableService iterableService;
+    private TrackService trackService;
 
-    @Value("${upload.musicPath}")
-    private String uploadPath;
+    /**
+     * Метод получает записи треков и возвращает страницу со всеми треками.
+     * @param model
+     * @return
+     */
+    @GetMapping("/allTracks")
+    public String getAllTracks(Model model) {
+        model.addAttribute("tracks", trackService.getAudioTracks());
+        return "allTracks";
+    }
+
+    /**
+     * Метод возвращает все треки переданного исполнителя.
+     * @param singer
+     * @param model
+     * @return
+     */
+    @GetMapping("{singer}")
+    public String getSingerTracks(@PathVariable String singer, Model model
+    ) {
+        model.addAttribute("tracks", trackService.getTracksBySinger(singer));
+        return "allTracks";
+    }
 
     /**
      * Метод возвращающий страницу добавления трека.
@@ -45,7 +56,7 @@ public class TrackController {
     }
 
     /**
-     * Метод сохраняет новый трек в БД и возвращает главную страницу.
+     * Метод дает команду на сохранение трека в БД и возвращает главную страницу.
      * @param file
      * @param description
      * @param singer
@@ -54,42 +65,33 @@ public class TrackController {
      * @throws IOException
      */
     @PostMapping("/addNewTrack")
-    @PreAuthorize("hasAuthority('MODERATOR')")
     public String addTrack(
             @RequestParam("file") MultipartFile file,
             @RequestParam String description,
             @RequestParam String singer, Map<String, Object> model
     ) throws IOException {
-        AudioTrack audioTrack = new AudioTrack(description, singer, true);
-
-        if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-            if (!file.getContentType().contains("audio")) {
-                model.put("message", "Выбран не подходящий файл!");
-                return "addNewTrack";
-            }
-
-            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
-            File uploadDir = new File(uploadPath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + filename;
-
-            file.transferTo(new File(uploadPath +  "/" + resultFilename));
-            audioTrack.setFilename(resultFilename);
-            audioTrackRepo.save(audioTrack);
+        if (trackService.addAudioTrack(file, description, singer)) {
             return "redirect:/";
-        }
-        else {
-            model.put("message", "Укажите загружаемый файл!");
+        } else {
+            model.put("message", "Выбран не подходящий файл!");
             return "addNewTrack";
         }
     }
 
     /**
-     * Метод сохраняет трек после изменения.
+     * Метод возвращает страницу редактирования указанного трека.
+     * @param audioTrack
+     * @param model
+     * @return
+     */
+    @GetMapping("/edit/{audioTrack}")
+    public String getTrackEditPage(@PathVariable AudioTrack audioTrack, Model model) {
+        model.addAttribute("track", audioTrack);
+        return "trackEdit";
+    }
+
+    /**
+     * Метод дает команду на сохранение отредактированного трека и возвращает главную страницу.
      * @param trackDescription
      * @param trackSinger
      * @param form
@@ -103,22 +105,13 @@ public class TrackController {
             @RequestParam Map<String, String> form,
             @RequestParam("id") AudioTrack audioTrack
     ) {
-        audioTrack.setTrackDescription(trackDescription);
-        audioTrack.setTrackSinger(trackSinger);
 
-        if (form.keySet().contains("isNew")){
-            audioTrack.setNewTrack(true);
-        }
-        else {
-            audioTrack.setNewTrack(false);
-        }
-
-        audioTrackRepo.save(audioTrack);
+        trackService.saveChanged(trackDescription, trackSinger, form, audioTrack);
         return "redirect:/tracks/allTracks";
     }
 
     /**
-     * Метод удаляет трек.
+     * Метод дает команду на удаление переданного трека и возвращает страницу со всеми треками.
      * @param audioTrack
      * @param model
      * @return
@@ -128,59 +121,7 @@ public class TrackController {
             @PathVariable AudioTrack audioTrack,
             Map<String, Object> model
     ) {
-        File file = new File(uploadPath + "/" + audioTrack.getFilename());
-        if (file.delete()) {
-            audioTrackRepo.delete(audioTrack);
-            return "redirect:/tracks/allTracks";
-        }
-        else {
-            model.put("message", "Удаляемый файл не найден");
-            return "redirect:/tracks/allTracks";
-        }
-    }
-
-    /**
-     * Метод возвращает все треки.
-     * @param model
-     * @return
-     */
-    @GetMapping("/allTracks")
-    public String getAllTracks(Model model) {
-        Iterable<AudioTrack> tracks;
-        tracks = audioTrackRepo.findAll();
-        model.addAttribute("tracks", iterableService.revertList((List)tracks));
-        return "allTracks";
-    }
-
-    /**
-     * Метод возвращает все треки переданного исполнителя.
-     * @param singer
-     * @param model
-     * @return
-     */
-    @GetMapping("{singer}")
-    public String getSingerTracks(@PathVariable String singer, Model model
-    ) {
-        Iterable<AudioTrack> tracks;
-        if (singer != null && !singer.isEmpty()) {
-            tracks = audioTrackRepo.findByTrackSinger(singer);
-        }
-        else {
-            tracks = audioTrackRepo.findAll();
-        }
-        model.addAttribute("tracks", tracks);
-        return "allTracks";
-    }
-
-    /**
-     * Метод возвращает страницу редактирования указанного трека.
-     * @param audioTrack
-     * @param model
-     * @return
-     */
-    @GetMapping("/edit/{audioTrack}")
-    public String getTrackEditPage(@PathVariable AudioTrack audioTrack, Model model) {
-        model.addAttribute("track", audioTrack);
-        return "trackEdit";
+        trackService.deleteTrack(audioTrack);
+        return "redirect:/tracks/allTracks";
     }
 }
