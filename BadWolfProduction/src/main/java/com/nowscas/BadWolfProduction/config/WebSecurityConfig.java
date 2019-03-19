@@ -31,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/"
-                            , "/registration"
                             , "/static/***"
                             , "/decoration/***"
                             , "/postImg/***"
@@ -40,9 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/tracks/***"
                             , "/prices"
                             , "/contacts"
-                            , "/faq"
                             , "/faq").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().anonymous()
                 .and()
                 .formLogin()
                 .loginPage("/login")
