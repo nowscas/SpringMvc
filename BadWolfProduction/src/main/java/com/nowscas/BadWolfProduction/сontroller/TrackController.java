@@ -50,7 +50,6 @@ public class TrackController {
      * @return
      */
     @GetMapping("/addNewTrack")
-    @PreAuthorize("hasAuthority('MODERATOR')")
     public String getNewTrackTemplate(){
         return "addNewTrack";
     }

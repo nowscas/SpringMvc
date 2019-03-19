@@ -19,61 +19,61 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    /**
-     * Метод возвращает страницу со всеми пользователями.
-     * @param model
-     * @return
-     */
-    @GetMapping
-    public String userList(Model model) {
-        model.addAttribute("users", userRepo.findAll());
-        return "userList";
-    }
+    //По скольку авторизации нет, то решено убрать страницу со всеми пользователями
+//    /**
+//     * Метод возвращает страницу со всеми пользователями.
+//     * @param model
+//     * @return
+//     */
+//    @GetMapping
+//    public String userList(Model model) {
+//        model.addAttribute("users", userRepo.findAll());
+//        return "userList";
+//    }
 
-    /**
-     * Метод возвращает страницу редактирования указанного пользователя.
-     * @param user
-     * @param model
-     * @return
-     */
-    @GetMapping("{user}")
-    public String userEditForm(@PathVariable User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("roles", Role.values());
-        return "userEdit";
-    }
+//    /**
+//     * Метод возвращает страницу редактирования указанного пользователя.
+//     * @param user
+//     * @param model
+//     * @return
+//     */
+//    @GetMapping("{user}")
+//    public String userEditForm(@PathVariable User user, Model model) {
+//        model.addAttribute("user", user);
+//        model.addAttribute("roles", Role.values());
+//        return "userEdit";
+//    }
 
-    /**
-     * Метод сохраняет изменения данных пользователя.
-     * @param username
-     * @param form
-     * @param user
-     * @return
-     */
-    @PostMapping
-    public String userSave(
-            @RequestParam String username,
-            @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user
-    ) {
-        user.setUsername(username);
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-
-        user.getRoles().clear();
-
-        for (String key : form.keySet()) {
-            if (roles.contains(key)) {
-                user.getRoles().add(Role.valueOf(key));
-            }
-        }
-        userRepo.save(user);
-        return "redirect:/user";
-    }
+//    /**
+//     * Метод сохраняет изменения данных пользователя.
+//     * @param username
+//     * @param form
+//     * @param user
+//     * @return
+//     */
+//    @PostMapping
+//    public String userSave(
+//            @RequestParam String username,
+//            @RequestParam Map<String, String> form,
+//            @RequestParam("userId") User user
+//    ) {
+//        user.setUsername(username);
+//        Set<String> roles = Arrays.stream(Role.values())
+//                .map(Role::name)
+//                .collect(Collectors.toSet());
+//
+//        user.getRoles().clear();
+//
+//        for (String key : form.keySet()) {
+//            if (roles.contains(key)) {
+//                user.getRoles().add(Role.valueOf(key));
+//            }
+//        }
+//        userRepo.save(user);
+//        return "redirect:/user";
+//    }
 }

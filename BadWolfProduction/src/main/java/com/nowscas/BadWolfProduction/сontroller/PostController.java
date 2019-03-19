@@ -24,15 +24,16 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    /**
-     * Метод получает записи новостей и возвращает страницу со всеми новостями.
-     * @return
-     */
-    @GetMapping("/news")
-    public String getAllPosts(Model model) {
-        model.addAttribute("posts", postService.getMainPagePosts());
-        return "allNews";
-    }
+    // Пока убрал страницу новостей
+//    /**
+//     * Метод получает записи новостей и возвращает страницу со всеми новостями.
+//     * @return
+//     */
+//    @GetMapping("/news")
+//    public String getAllPosts(Model model) {
+//        model.addAttribute("posts", postService.getMainPagePosts());
+//        return "allNews";
+//    }
 
     /**
      * Метод возвращает страницу добавления новой новости.

@@ -62,7 +62,6 @@ public class PricePostController {
     /**
      * Метод дает команду на удаление переданной цены и возвращает страницу цен.
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/deletePrice/{pricePost}")
     public String deletePrice(
             @PathVariable PricePost pricePost,
