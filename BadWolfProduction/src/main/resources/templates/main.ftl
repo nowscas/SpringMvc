@@ -51,9 +51,11 @@
                     <div class="m-2">
                         ${post.postBody}
                     </div>
-                    <div class="card-footer text-muted" style="text-align: right">
-                        ${post.authorName}
-                    </div>
+                    <#if isAdmin>
+                        <div class="card-footer text-muted" style="text-align: center">
+                            <a class="nav-link" style="color: red" href="/editPost/${post.id}">edit</a>
+                        </div>
+                    </#if>
                 </div>
             <#else>
                 Записи не найдены

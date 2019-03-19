@@ -25,11 +25,6 @@
             <div class="card-footer text-muted">
                 ${post.authorName}
             </div>
-            <#if isAdmin>
-                <div class="card-footer text-muted">
-                    <a class="nav-link" href="/editPost/${post.id}">edit</a>
-                </div>
-            </#if>
         </div>
     </div>
     <#else>

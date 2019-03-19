@@ -40,6 +40,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/prices"
                             , "/contacts"
                             , "/faq").permitAll()
+                    .antMatchers("/tracks"
+                            , "/addFaqPost"
+                            , "/addNewFaq"
+                            , "/deleteFaq"
+                            , "/addNewPost"
+                            , "/editPost"
+                            , "/changePost"
+                            , "/deletePost"
+                            , "/addPricePost"
+                            , "/addPrice"
+                            , "/deletePrice"
+                            , "/addNewStock"
+                            , "/deleteStock"
+                            , "/tracks/addNewTrack"
+                            , "/tracks/edit"
+                            , "/tracks/deleteTrack").authenticated()
                 .anyRequest().anonymous()
                 .and()
                 .formLogin()
