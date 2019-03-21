@@ -61,26 +61,6 @@ public class UserService implements UserDetailsService {
      * Метод записи пользователя в БД.
      */
     public void addUser(User user, MultipartFile file) throws IOException {
-        if (file.getSize() != 0 && !file.getOriginalFilename().isEmpty()) {
-
-            String filename = fileNameRedactor.replaceChar(file.getOriginalFilename(), " ", "_");
-            File uploadDir = new File(uploadPath);
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + filename;
-
-            File output = new File(uploadPath +  "/" + resultFilename);
-            ImageIO.write(imageRedactor.resizeImage(file.getBytes(), 40, 40), "png", output);
-
-            user.setFilename(resultFilename);
-        }
-        else {
-            user.setFilename("defaultImage.jpg");
-        }
-
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.ADMIN));
         userRepo.save(user);

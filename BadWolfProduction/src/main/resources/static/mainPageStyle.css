@@ -12,7 +12,8 @@
     border-radius: 15px !important;
 }
 .columnHeader {
-    color: red;
+    color: #DE872F;
+    font-size: 200%;
 }
 .nav-link {
     display: -webkit-inline-box;
@@ -29,6 +30,7 @@
 .card-header {
     text-align: center;
 }
+
 
 
 

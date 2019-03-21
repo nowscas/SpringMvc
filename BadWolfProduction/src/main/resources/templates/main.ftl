@@ -7,13 +7,13 @@
 <div class="container">
     <div class="row columnHeader">
         <div class="col-4">
-            <div style="text-align: center;">Наши последние работы</div>
+            <div style="text-align: center;"><b>Наши последние работы</b></div>
         </div>
         <div class="col-5">
-            <div style="text-align: center;">Новости</div>
+            <div style="text-align: center;"><b>Новости</b></div>
         </div>
         <div class="col-3">
-            <div style="text-align: center;">Акции и скидки</div>
+            <div style="text-align: center;"><b>Акции и скидки</b></div>
         </div>
     </div>
     <div class="row">

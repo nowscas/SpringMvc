@@ -20,7 +20,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private boolean active;
-    private String filename;
+//    private String filename;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -75,13 +75,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
+//    public String getFilename() {
+//        return filename;
+//    }
+//
+//    public void setFilename(String filename) {
+//        this.filename = filename;
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
