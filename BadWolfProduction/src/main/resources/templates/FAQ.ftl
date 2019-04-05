@@ -21,6 +21,6 @@
             </#if>
         </div>
     <#else>
-        Вопросы не найдены
+        <div style="text-align: center; font-size: 200%">Вопросы не найдены</div>
     </#list>
 </@c.page>

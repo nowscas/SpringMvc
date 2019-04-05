@@ -2,7 +2,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-${message?ifExists}
+<div style="text-align: center; font-size: 200%">${message?ifExists}</div>
 
 <link rel="stylesheet" href="/static/audioPage.css">
     <#list tracks as track>
@@ -24,6 +24,6 @@ ${message?ifExists}
         </div>
     </div>
     <#else>
-        Треки не найдены
+        <div style="text-align: center; font-size: 200%">Треки не найдены</div>
     </#list>
 </@c.page>
