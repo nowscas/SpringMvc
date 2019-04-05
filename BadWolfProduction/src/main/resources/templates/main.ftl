@@ -25,8 +25,6 @@
                         <source src=/audio/${track.filename} type="audio/mpeg">
                     </audio>
                 </#if>
-            <#else>
-                Треки не найдены
             </#list>
         </div>
         <div class="col-5 border border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
@@ -57,8 +55,6 @@
                         </div>
                     </#if>
                 </div>
-            <#else>
-                Записи не найдены
             </#list>
         </div>
         <div class="col-3 border-right border-top border-bottom border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
