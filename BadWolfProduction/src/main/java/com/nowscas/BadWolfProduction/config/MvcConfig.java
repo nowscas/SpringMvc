@@ -12,8 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    @Value("${upload.imagePath}")
-    private String uploadImagePath;
     @Value("${upload.postImagePath}")
     private String uploadPostImagePath;
     @Value("${upload.musicPath}")
@@ -38,8 +36,6 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/***")
-                .addResourceLocations("file://" + uploadImagePath + "/");
         registry.addResourceHandler("/postImg/***")
                 .addResourceLocations("file://" + uploadPostImagePath + "/");
         registry.addResourceHandler("/audio/***")

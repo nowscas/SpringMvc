@@ -29,9 +29,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private StringRedactor fileNameRedactor;
 
-    @Value("${upload.imagePath}")
-    private String uploadPath;
-
     /**
      * Метод возвращает пользователя из БД по имени.
      * @param username
