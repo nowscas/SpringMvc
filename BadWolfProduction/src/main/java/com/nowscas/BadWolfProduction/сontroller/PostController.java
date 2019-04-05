@@ -111,6 +111,6 @@ public class PostController {
             Model model
     ) {
         postService.deletePost(mainPagePost);
-        return "redirect:/news";
+        return "redirect:/";
     }
 }

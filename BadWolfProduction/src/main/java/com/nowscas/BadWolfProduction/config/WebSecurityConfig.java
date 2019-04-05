@@ -35,28 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             , "/decoration/***"
                             , "/postImg/***"
                             , "/audio/***"
-                            , "/allPosts"
                             , "/tracks/***"
                             , "/prices"
                             , "/contacts"
                             , "/faq").permitAll()
-                    .antMatchers("/tracks"
-                            , "/addFaqPost"
-                            , "/addNewFaq"
-                            , "/deleteFaq"
-                            , "/addNewPost"
-                            , "/editPost"
-                            , "/changePost"
-                            , "/deletePost"
-                            , "/addPricePost"
-                            , "/addPrice"
-                            , "/deletePrice"
-                            , "/addNewStock"
-                            , "/deleteStock"
-                            , "/tracks/addNewTrack"
-                            , "/tracks/edit"
-                            , "/tracks/deleteTrack").authenticated()
-                .anyRequest().anonymous()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
