@@ -31,7 +31,7 @@
         </div>
         <div class="col-5 border border-secondary rounded" style="box-shadow: -5px 0 20px 5px black;">
             <div style="text-align: center">
-                <#if isModer>
+                <#if isAdmin>
                     <a class="nav-link" style="color: #006BD6;" href="/addNewPost">Добавить новость</a>
                 </#if>
             </div>
